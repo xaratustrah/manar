@@ -6,8 +6,9 @@ Feb 2015 Xaratustrah
 
 """
 
-import json
+import json, os
 from numpy import genfromtxt
+import urllib.request as ur
 
 
 class Card:
@@ -39,16 +40,23 @@ class Card:
     def get_mci_url(self):
         return 'http://magiccards.info/{}/en/{}.html'.format(self.block, self.number).lower()
 
-    def get_mci_image_url(self):
-        return 'http://magiccards.info/scans/en/{}/{}.jpg'.format(self.block, self.number).lower()
+    def get_url_and_image(self, folder, download=False, size='small'):
+        if size == 'medium':
+            url = 'http://mtgimage.com/multiverseid/{}.jpg'.format(self.get_uid())
+        elif size == 'small':
+            url = 'http://magiccards.info/scans/en/{}/{}.jpg'.format(self.block, self.number).lower()
 
-    def get_mtg_image_url(self):
-        return 'http://mtgimage.com/multiverseid/{}.jpg'.format(self.get_uid())
+        if download:
+            g = ur.urlopen(url)
+            with open('./{}/{}.jpg'.format(folder, self.get_uid()), 'b+w') as f:
+                f.write(g.read())
+        return url
 
 
 class Deck:
-    def __init__(self):
+    def __init__(self, name):
         self.card_list = []
+        self.name = name
 
     def __str__(self):
         out = ''
@@ -71,9 +79,19 @@ class Deck:
     def add_card(self, card):
         self.card_list.append(card)
 
+    def store_pictures(self):
+        if not os.path.exists(self.name):
+            os.makedirs(self.name)
+        for i in range(len(self.card_list)):
+            print('--> Retrieving image of {} from {}'.format(self.card_list[i],
+                                                              self.card_list[i].get_url_and_image(self.name,
+                                                                                                  download=True,
+                                                                                                  size='medium')))
 
 if __name__ == "__main__":
-    all_cards = Deck()
+    all_cards = Deck("all_cards")
     all_cards.make_from_file('cards.txt')
     print(all_cards)
     print(all_cards.get_size())
+    # print(all_cards.card_list[0].get_mtg_image_url(all_cards.name))
+    all_cards.store_pictures()

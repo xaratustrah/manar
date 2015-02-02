@@ -1,16 +1,17 @@
 # pymtg
 
-This is yet another MTG command line utility written in Python. Organize your MTG cards, deck and strategy using an object oriented interface to mtg cards. It uses the JSON database files from [http://mtgjson.com/](http://mtgjson.com/). So please download the set files from there.
+This is yet another Magic: The Gathering (TM) command line utility written in Python. Organize your MTG cards, deck and strategy using an object oriented interface to mtg cards. It uses the JSON database files from [http://mtgjson.com/](http://mtgjson.com/). So please download the set files from there.
 
 
 #### Features
 
 Following features are supported:
 
-* Make a database of all your cards.
-* Make decks
+* Make a database of all your cards
+* Make individual decks
 * Search for cards and add them into the decks.
-* Urls are generated automatically for:
+* Download card images from internet put in separate directories named after each deck
+* Look up cards in using automatically generated URLs:
   * [http://mtgimage.com/](http://mtgimage.com/)
   * [http://gatherer.wizards.com/](http://gatherer.wizards.com/Pages/Default.aspx)
   * [http://magiccards.info/](http://magiccards.info/) 

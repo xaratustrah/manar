@@ -6,7 +6,8 @@ Feb 2015 Xaratustrah
 """
 
 import os
-from numpy import genfromtxt
+import numpy as np
+import matplotlib.pyplot as plt
 from card import Card
 
 
@@ -28,7 +29,7 @@ class Deck:
         return '--> Total number of cards in deck: {}'.format(len(self.card_list))
 
     def make_from_file(self, filename):
-        cards_file = genfromtxt(filename, dtype=None)
+        cards_file = np.genfromtxt(filename, dtype=None)
         for i in range(len(cards_file)):
             for j in range(cards_file[i][2]):
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
@@ -183,3 +184,20 @@ class Deck:
                             if '{R}' not in c.get_mana_cost():
                                 checked.append(c)
         return checked
+
+    @staticmethod
+    def get_mana_curve(lst):
+        cost = []
+        for c in lst:
+            cost.append(c.get_converted_mana_cost())
+        acost = np.asarray(cost)
+        fig = plt.figure()
+        # axes = plt.gca()
+        # axes.set_xlim([-4, 4])
+        # axes.set_ylim([-4, 4])
+        plt.hist(acost, bins=len(cost), color='r', alpha=0.5)
+        plt.grid(False)
+        #plt.axis('off')
+        fig.set_size_inches(2.5, 0.8)
+        fig.savefig('manacurve.png', dpi=100)
+        print(cost)

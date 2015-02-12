@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>974</width>
+    <height>590</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ManaR</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="2">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>New Deck</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QListView" name="listView_deck"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>Base Deck</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QListView" name="listView_db"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Mana Curve</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QGraphicsView" name="graphicsView_mana"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="title">
+           <string>Control</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QCheckBox" name="checkBox_r">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(128, 0, 0)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_g">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 128, 0)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_w">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(255, 255, 255)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_u">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 0, 255)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_b">
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 0, 0)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="labe_mana">
+               <property name="text">
+                <string>Mana Cost</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_mana">
+               <item>
+                <property name="text">
+                 <string>=</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>&lt;</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>&lt;=</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>&gt;</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>&gt;=</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_mana">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>50</number>
+               </property>
+               <property name="value">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_type">
+               <property name="text">
+                <string>Filter</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_type">
+               <item>
+                <property name="text">
+                 <string>All Cards</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Artifacts</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Creatures</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Enchantments</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Instants</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Lands</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Planeswalkers</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Sorceries</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>ManaRlize</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Deck Statistics</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QTextEdit" name="textEdit"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Card view</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGraphicsView" name="graphicsView_card"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QPushButton" name="pushButton_prev">
+           <property name="text">
+            <string>&lt;--</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_next">
+           <property name="text">
+            <string>--&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>974</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDeck">
+    <property name="title">
+     <string>Deck</string>
+    </property>
+    <addaction name="actionLoad_Deck"/>
+    <addaction name="actionSave_Deck"/>
+    <addaction name="separator"/>
+    <addaction name="actionDownload_Images"/>
+    <addaction name="separator"/>
+    <addaction name="actionManaRlize"/>
+    <addaction name="actionUpdate_Mana_Curve"/>
+    <addaction name="actionGet_Statistics"/>
+   </widget>
+   <widget class="QMenu" name="menuCard">
+    <property name="title">
+     <string>Card</string>
+    </property>
+    <addaction name="actionPrint_URL"/>
+    <addaction name="actionPrint_JSON"/>
+    <addaction name="separator"/>
+    <addaction name="actionNext_Card_in_Deck"/>
+    <addaction name="actionPrev_Card_in_Deck"/>
+   </widget>
+   <addaction name="menuDeck"/>
+   <addaction name="menuCard"/>
+  </widget>
+  <action name="actionLoad_data_base">
+   <property name="text">
+    <string>Load data base</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionLoad_Deck">
+   <property name="text">
+    <string>Load Deck</string>
+   </property>
+  </action>
+  <action name="actionSave_Deck">
+   <property name="text">
+    <string>Save Deck</string>
+   </property>
+  </action>
+  <action name="actionDownload_images">
+   <property name="text">
+    <string>Download images</string>
+   </property>
+  </action>
+  <action name="actionPrint_URL">
+   <property name="text">
+    <string>Print URL</string>
+   </property>
+  </action>
+  <action name="actionManaRlize">
+   <property name="text">
+    <string>ManaRlize</string>
+   </property>
+  </action>
+  <action name="actionGet_Statistics">
+   <property name="text">
+    <string>Get Statistics</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Mana_Curve">
+   <property name="text">
+    <string>Update Mana Curve</string>
+   </property>
+  </action>
+  <action name="actionExit_2">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionPrint_JSON">
+   <property name="text">
+    <string>Print JSON</string>
+   </property>
+  </action>
+  <action name="actionNext_Card_in_Deck">
+   <property name="text">
+    <string>Next Card in Deck</string>
+   </property>
+  </action>
+  <action name="actionPrev_Card_in_Deck">
+   <property name="text">
+    <string>Prev Card in Deck</string>
+   </property>
+  </action>
+  <action name="actionDownload_Images">
+   <property name="text">
+    <string>Download Images</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

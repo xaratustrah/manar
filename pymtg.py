@@ -15,3 +15,5 @@ if __name__ == "__main__":
     lst = allcards.nonland_card_list
     lst = Deck.get_unique_list(lst)
     Deck.print_list(Deck.get_blacks(lst))
+#    allcards.download_images()
+    Deck.get_mana_curve(Deck.get_blacks(lst))

@@ -5,7 +5,7 @@ Feb 2015 Xaratustrah
 
 """
 
-import json
+import json, re
 import urllib.request as ur
 
 
@@ -33,6 +33,14 @@ class Card:
 
     def get_mana_cost(self):
         return self.dict['manaCost']
+
+    def get_converted_mana_cost(self):
+        mc = self.get_mana_cost()
+        cmc = mc.count('W') + mc.count('G') + mc.count('B') + mc.count('U') + mc.count('R')
+        num = re.findall('\d', mc)
+        if len(num) > 0:
+            cmc += int(num[0])
+        return cmc
 
     def get_rarity(self):
         return self.dict['rarity']

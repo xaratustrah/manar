@@ -35,7 +35,7 @@ class Deck:
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
                 self.add_card(cc)
         # self.unique_card_list = self.get_unique_list(self.card_list)
-        self.nonland_card_list = self.get_nonland()
+        #self.nonland_card_list = self.get_nonland()
 
     def add_card(self, card):
         self.card_list.append(card)
@@ -55,68 +55,17 @@ class Deck:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
-                # TODO: change with generator function
-
-    def get_lands(self):
+    def get_cards_of_type(self, type):
         lst = []
         for c in self.card_list:
-            if 'Land' in c.get_types():
+            if type in c.get_types():
                 lst.append(c)
         return lst
 
-    def get_sorceries(self):
-        lst = []
+    def get_filename_from_name(self, name):
         for c in self.card_list:
-            if 'Sorcery' in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_instants(self):
-        lst = []
-        for c in self.card_list:
-            if 'Instant' in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_enchantments(self):
-        lst = []
-        for c in self.card_list:
-            if 'Enchantment' in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_planeswalkers(self):
-        lst = []
-        for c in self.card_list:
-            if 'Planeswalker' in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_artifacts(self):
-        lst = []
-        for c in self.card_list:
-            if 'Artifact' in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_creatures(self):
-        lst = []
-        for c in self.card_list:
-            if 'Creature' in c.get_types():
-                lst.append(c)
-        return lst
-
-    # @staticmethod
-    def get_nonland(self):
-        lst = []
-        lst.extend(self.get_creatures())
-        lst.extend(self.get_artifacts())
-        lst.extend(self.get_enchantments())
-        lst.extend(self.get_planeswalkers())
-        lst.extend(self.get_sorceries())
-        lst.extend(self.get_instants())
-
-        return lst
+            if name == c.__str__():
+                return self.name + '/' + '{}.jpg'.format(c.get_uid())
 
     @staticmethod
     def print_list(lst):

@@ -12,10 +12,11 @@ from card import Card
 
 
 class Deck:
-    def __init__(self, name):
+    def __init__(self, name, view):
         self.card_list = []
         self.nonland_card_list = []
         self.name = name
+        self.view = view
 
     def __str__(self):
         out = ''
@@ -34,18 +35,23 @@ class Deck:
             for j in range(cards_file[i][2]):
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
                 self.add_card(cc)
-        # self.unique_card_list = self.get_unique_list(self.card_list)
-        #self.nonland_card_list = self.get_nonland()
+                # self.unique_card_list = self.get_unique_list(self.card_list)
+                # self.nonland_card_list = self.get_nonland()
 
     def add_card(self, card):
         self.card_list.append(card)
+
+    def get_deck_stat(self):
+        text = 'Total No. of cards in Deck: {}\nMore statistics to come...'.format(len(self.card_list))
+        self.view.update_text_field(text)
 
     def download_images(self):
         if not os.path.exists(self.name):
             os.makedirs(self.name)
         for i in range(len(self.card_list)):
             url = self.card_list[i].get_image_url(size='small')
-            print('--> Retrieving image of {} from {}'.format(self.card_list[i], url))
+            text = '--> Retrieving image of {} from {}'.format(self.card_list[i], url)
+            self.view.update_text_field(text)
             self.card_list[i].download_image(url, self.name)
 
     def save_to_disk(self):
@@ -146,7 +152,7 @@ class Deck:
         # axes.set_ylim([-4, 4])
         plt.hist(acost, bins=len(cost), color='r', alpha=0.5)
         plt.grid(False)
-        #plt.axis('off')
+        # plt.axis('off')
         fig.set_size_inches(2.5, 0.8)
         fig.savefig('manacurve.png', dpi=100)
         print(cost)

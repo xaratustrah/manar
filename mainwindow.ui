@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1323</width>
+    <width>978</width>
     <height>713</height>
    </rect>
   </property>
@@ -17,41 +17,29 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>40</y>
-      <width>286</width>
-      <height>461</height>
+      <x>610</x>
+      <y>10</y>
+      <width>342</width>
+      <height>494</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="title">
      <string>Card view</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QGraphicsView" name="graphicsView_card"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="pushButton_prev">
-         <property name="text">
-          <string>&lt;--</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_next">
-         <property name="text">
-          <string>--&gt;</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>ManaRlize</string>
+      <widget class="QGraphicsView" name="graphicsView_card">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
       </widget>
      </item>
@@ -60,10 +48,10 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>540</y>
-      <width>590</width>
-      <height>127</height>
+      <x>10</x>
+      <y>500</y>
+      <width>941</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="title">
@@ -71,15 +59,19 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>60</y>
+      <x>310</x>
+      <y>20</y>
       <width>286</width>
       <height>275</height>
      </rect>
@@ -92,9 +84,16 @@
       <widget class="QGraphicsView" name="graphicsView_mana"/>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_mana_curve">
        <property name="text">
-        <string>Update</string>
+        <string>Update Mana Curve</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_manarlize">
+       <property name="text">
+        <string>ManaRlize</string>
        </property>
       </widget>
      </item>
@@ -104,9 +103,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
+      <y>10</y>
       <width>281</width>
-      <height>501</height>
+      <height>461</height>
      </rect>
     </property>
     <property name="title">
@@ -114,7 +113,11 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QListView" name="listView_base"/>
+      <widget class="QListView" name="listView_base">
+       <property name="movement">
+        <enum>QListView::Snap</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -375,12 +378,10 @@
      </item>
     </layout>
    </widget>
+   <zorder>groupBox_base</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
-   <zorder>groupBox_3</zorder>
    <zorder>groupBox_2</zorder>
-   <zorder>comboBox</zorder>
-   <zorder>label</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -388,7 +389,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1323</width>
+     <width>978</width>
      <height>22</height>
     </rect>
    </property>
@@ -418,29 +419,20 @@
    <addaction name="menuDeck"/>
    <addaction name="menuCard"/>
   </widget>
-  <action name="actionLoad_data_base">
-   <property name="text">
-    <string>Load data base</string>
-   </property>
-  </action>
-  <action name="actionExit">
-   <property name="text">
-    <string>Exit</string>
-   </property>
-  </action>
   <action name="actionLoad_Deck">
    <property name="text">
     <string>Load Deck</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave_Deck">
    <property name="text">
     <string>Save Deck</string>
    </property>
-  </action>
-  <action name="actionDownload_images">
-   <property name="text">
-    <string>Download images</string>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionPrint_URL">
@@ -452,6 +444,9 @@
    <property name="text">
     <string>ManaRlize</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
   </action>
   <action name="actionGet_Statistics">
    <property name="text">
@@ -461,11 +456,6 @@
   <action name="actionUpdate_Mana_Curve">
    <property name="text">
     <string>Update Mana Curve</string>
-   </property>
-  </action>
-  <action name="actionExit_2">
-   <property name="text">
-    <string>Exit</string>
    </property>
   </action>
   <action name="actionPrint_JSON">
@@ -486,6 +476,9 @@
   <action name="actionDownload_Images">
    <property name="text">
     <string>Download Images</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

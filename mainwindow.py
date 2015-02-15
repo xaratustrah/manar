@@ -7,34 +7,46 @@ Feb 2015 Xaratustrah
 
 from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QFileDialog
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
+from PyQt5.QtCore import QModelIndex
 from mainwindow_ui import Ui_MainWindow
 
 from deck import Deck
-from card import Card
+from interface import Interface
 
 
-class mainWindow(QMainWindow, Ui_MainWindow):
+class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     def __init__(self):
         super(mainWindow, self).__init__()
 
         # Set up the user interface from Designer.
-        self.base_deck = Deck("base_deck")
+        self.base_deck = Deck("base_deck", self)
         self.setupUi(self)
 
         # signals
         self.actionLoad_Deck.triggered.connect(self.open_file_dialog)
-        self.listView_base.clicked.connect(self.update_card_view)
+        self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
         self.comboBox_type_base.activated.connect(self.process_filter_base)
+        self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
 
-    def update_card_view(self):
-        print(self.base_deck.get_filename_from_name('Abzan Guide'))
-        print(self.listView_base.clicked)
-        print(self.listView_base.data().toString())
-        filename = 'my_cards/386554.jpg'
+        self.listView_base.clicked.connect(self.update_card_view)
+
+    def update_text_field(self, text):
+        self.textEdit.append(text)
+
+    def update_card_view(self, index):
+        card_name = self.listView_base.model().itemData(index)[0]
+        pic_filename = self.base_deck.get_filename_from_name(card_name)
         scene = QGraphicsScene()
-        scene.addPixmap(QPixmap(filename))
+        scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)
 
+    def update_base_deck_list_view(self, lst):
+            model_base = QStandardItemModel(self.listView_base)
+            for c in lst:
+                item = QStandardItem(c.__str__())
+                model_base.appendRow(item)
+            self.listView_base.setModel(model_base)
+            self.listView_base.show()
 
     def open_file_dialog(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '', "All Files (*)")
@@ -46,14 +58,6 @@ class mainWindow(QMainWindow, Ui_MainWindow):
         lst = self.base_deck.card_list
         # lst = Deck.get_unique_list(lst)
         self.update_base_deck_list_view(lst)
-
-    def update_base_deck_list_view(self, lst):
-        model_base = QStandardItemModel(self.listView_base)
-        for c in lst:
-            item = QStandardItem(c.__str__())
-            model_base.appendRow(item)
-        self.listView_base.setModel(model_base)
-        self.listView_base.show()
 
     def process_filter_base(self):
         typ = self.comboBox_type_base.currentText()
@@ -97,4 +101,4 @@ class mainWindow(QMainWindow, Ui_MainWindow):
         # if not out_file.open(QIODevice.WriteOnly):
         # QMessageBox.information(self, "Unable to open file",
         # out_file.errorString())
-        #     return
+        # return

@@ -62,18 +62,18 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     def process_filter_base(self):
         typ = self.comboBox_type_base.currentText()
         ability = self.comboBox_ability_base.currentText()
-        if typ == 'Land':
-            lst = self.base_deck.get_cards_of_type(typ)
-            self.update_base_deck_list_view(lst)
-            return
+
         if typ == 'All Cards':
             lst = self.base_deck.card_list
             self.update_base_deck_list_view(lst)
             return
-        else:
-#            if not ability == 'Any':
-#                lst1 = self.base_deck.get_cards_of_ability(ability)
-            lst = self.base_deck.get_cards_of_type(typ)
+
+        if typ == 'Land':
+            lst = Deck.get_cards_of_type(self.base_deck.card_list, typ)
+            self.update_base_deck_list_view(lst)
+            return
+
+        lst = Deck.get_cards_of_type(self.base_deck.card_list, typ)
 
         lst_out = []
 
@@ -101,6 +101,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         if cl:
             lst_out.extend(Deck.get_colorless(lst))
+
+        if not ability == 'Any':
+            lst_out = Deck.get_cards_of_ability(lst_out, ability)
 
         self.update_base_deck_list_view(lst_out)
 

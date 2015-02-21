@@ -58,94 +58,96 @@ class Deck:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
-    def get_cards_of_type(self, typ):
-        lst = []
-        for c in self.card_list:
-            if typ in c.get_types():
-                lst.append(c)
-        return lst
-
-    def get_cards_of_ability(self, abil):
-        lst = []
-        for c in self.card_list:
-            if abil in c.get_text():
-                lst.append(c)
-        return lst
-
     def get_filename_from_name(self, name):
         for c in self.card_list:
             if name == c.__str__():
                 return self.name + '/' + '{}.jpg'.format(c.get_uid())
 
     @staticmethod
-    def print_list(lst):
-        for c in lst:
-            print(c)
-
-    @staticmethod
-    def get_unique_list(lst):
-        checked = []
+    def get_cards_of_type(lst_in, typ):
         lst_out = []
-        for c in lst:
-            if c.__str__() not in checked:
-                checked.append(c.__str__())
+        for c in lst_in:
+            if typ in c.get_types():
                 lst_out.append(c)
         return lst_out
 
     @staticmethod
-    def get_whites(lst):
-        checked = []
-        for c in lst:
-            if '{W}' in c.get_mana_cost():
-                checked.append(c)
-        return checked
+    def get_cards_of_ability(lst_in, abil):
+        lst_out = []
+        for c in lst_in:
+            if abil in c.get_text():
+                lst_out.append(c)
+        return lst_out
 
     @staticmethod
-    def get_blues(lst):
-        checked = []
-        for c in lst:
+    def print_list(lst_in):
+        for c in lst_in:
+            print(c)
+
+    @staticmethod
+    def get_unique_list(lst_in):
+        lst_out = []
+        lst_out = []
+        for c in lst_in:
+            if c.__str__() not in lst_out:
+                lst_out.append(c.__str__())
+                lst_out.append(c)
+        return lst_out
+
+    @staticmethod
+    def get_whites(lst_in):
+        lst_out = []
+        for c in lst_in:
+            if '{W}' in c.get_mana_cost():
+                lst_out.append(c)
+        return lst_out
+
+    @staticmethod
+    def get_blues(lst_in):
+        lst_out = []
+        for c in lst_in:
             if '{U}' in c.get_mana_cost():
-                checked.append(c)
-        return checked
+                lst_out.append(c)
+        return lst_out
 
     @staticmethod
     def get_blacks(lst):
-        checked = []
+        lst_out = []
         for c in lst:
             if '{B}' in c.get_mana_cost():
-                checked.append(c)
-        return checked
+                lst_out.append(c)
+        return lst_out
 
     @staticmethod
     def get_reds(lst):
-        checked = []
+        lst_out = []
         for c in lst:
             if '{R}' in c.get_mana_cost():
-                checked.append(c)
-        return checked
+                lst_out.append(c)
+        return lst_out
 
     @staticmethod
     def get_greens(lst):
-        checked = []
+        lst_out = []
         for c in lst:
             if '{G}' in c.get_mana_cost():
-                checked.append(c)
-        return checked
+                lst_out.append(c)
+        return lst_out
 
     @staticmethod
     def get_colorless(lst):
-        checked = []
+        lst_out = []
         for c in lst:
             if '{W}' not in c.get_mana_cost():
                 if '{U}' not in c.get_mana_cost():
                     if '{B}' not in c.get_mana_cost():
                         if '{G}' not in c.get_mana_cost():
                             if '{R}' not in c.get_mana_cost():
-                                checked.append(c)
-        return checked
+                                lst_out.append(c)
+        return lst_out
 
     @staticmethod
-    def get_mana_curve(lst):
+    def plot_mana_curve(lst):
         cost = []
         for c in lst:
             cost.append(c.get_converted_mana_cost())

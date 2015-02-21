@@ -22,6 +22,12 @@ class Card:
     def __str__(self):
         return self.dict['name']
 
+    def get_text(self):
+        txt = ""
+        if 'text' in self.dict:
+            txt = self.dict['text']
+        return txt
+
     def get_types(self):
         return self.dict['types']
 

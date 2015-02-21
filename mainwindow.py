@@ -41,12 +41,12 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.graphicsView_card.setScene(scene)
 
     def update_base_deck_list_view(self, lst):
-            model_base = QStandardItemModel(self.listView_base)
-            for c in lst:
-                item = QStandardItem(c.__str__())
-                model_base.appendRow(item)
-            self.listView_base.setModel(model_base)
-            self.listView_base.show()
+        model_base = QStandardItemModel(self.listView_base)
+        for c in lst:
+            item = QStandardItem(c.__str__())
+            model_base.appendRow(item)
+        self.listView_base.setModel(model_base)
+        self.listView_base.show()
 
     def open_file_dialog(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '', "All Files (*)")
@@ -61,6 +61,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     def process_filter_base(self):
         typ = self.comboBox_type_base.currentText()
+        ability = self.comboBox_ability_base.currentText()
         if typ == 'Land':
             lst = self.base_deck.get_cards_of_type(typ)
             self.update_base_deck_list_view(lst)
@@ -70,23 +71,36 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             self.update_base_deck_list_view(lst)
             return
         else:
+#            if not ability == 'Any':
+#                lst1 = self.base_deck.get_cards_of_ability(ability)
             lst = self.base_deck.get_cards_of_type(typ)
 
         lst_out = []
-        if self.checkBox_r_base.isChecked():
+
+        r = self.checkBox_r_base.isChecked()
+        g = self.checkBox_g_base.isChecked()
+        w = self.checkBox_w_base.isChecked()
+        u = self.checkBox_u_base.isChecked()
+        b = self.checkBox_b_base.isChecked()
+        cl = self.checkBox_cl_base.isChecked()
+
+        if r:
             lst_out.extend(Deck.get_reds(lst))
 
-        if self.checkBox_g_base.isChecked():
+        if g:
             lst_out.extend(Deck.get_greens(lst))
 
-        if self.checkBox_w_base.isChecked():
+        if w:
             lst_out.extend(Deck.get_whites(lst))
 
-        if self.checkBox_u_base.isChecked():
+        if u:
             lst_out.extend(Deck.get_blues(lst))
 
-        if self.checkBox_b_base.isChecked():
+        if b:
             lst_out.extend(Deck.get_blacks(lst))
+
+        if cl:
+            lst_out.extend(Deck.get_colorless(lst))
 
         self.update_base_deck_list_view(lst_out)
 

@@ -241,6 +241,19 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_cl_base">
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(128, 128, 128)</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
@@ -301,12 +314,12 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Ability</string>
+          <string>Ability/Mechanic</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="comboBox_ability_base">
          <item>
           <property name="text">
            <string>Any</string>
@@ -314,7 +327,27 @@
          </item>
          <item>
           <property name="text">
+           <string>Bolster</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dash</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Dearthtouch</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Delve</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Ferocious</string>
           </property>
          </item>
          <item>
@@ -349,6 +382,11 @@
          </item>
          <item>
           <property name="text">
+           <string>Manifest</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Morph</string>
           </property>
          </item>
@@ -360,6 +398,16 @@
          <item>
           <property name="text">
            <string>Protection</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Prowess</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Raid</string>
           </property>
          </item>
          <item>

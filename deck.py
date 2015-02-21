@@ -26,9 +26,6 @@ class Deck:
                 out += '\n'
         return out
 
-    def get_size(self):
-        return '--> Total number of cards in deck: {}'.format(len(self.card_list))
-
     def make_from_file(self, filename):
         cards_file = np.genfromtxt(filename, dtype=None)
         for i in range(len(cards_file)):
@@ -36,7 +33,7 @@ class Deck:
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
                 self.add_card(cc)
                 # self.unique_card_list = self.get_unique_list(self.card_list)
-                # self.nonland_card_list = self.get_nonland()
+                #self.nonland_card_list = self.get_nonland()
 
     def add_card(self, card):
         self.card_list.append(card)
@@ -61,10 +58,17 @@ class Deck:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
-    def get_cards_of_type(self, type):
+    def get_cards_of_type(self, typ):
         lst = []
         for c in self.card_list:
-            if type in c.get_types():
+            if typ in c.get_types():
+                lst.append(c)
+        return lst
+
+    def get_cards_of_ability(self, abil):
+        lst = []
+        for c in self.card_list:
+            if abil in c.get_text():
                 lst.append(c)
         return lst
 

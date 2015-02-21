@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from card import Card
 
 
-class Deck:
+class Deck(object):
     def __init__(self, name, view):
         self.card_list = []
         self.nonland_card_list = []
@@ -25,6 +25,11 @@ class Deck:
             if i < len(self.card_list) - 1:
                 out += '\n'
         return out
+
+    def __cmp__(self, other):
+        # todo: here compare method for sort
+
+        return
 
     def make_from_file(self, filename):
         cards_file = np.genfromtxt(filename, dtype=None)
@@ -191,3 +196,10 @@ class Deck:
         fig.set_size_inches(2.5, 0.8)
         fig.savefig('manacurve.png', dpi=100)
         print(cost)
+
+    @staticmethod
+    def get_mana_curve(lst):
+        cost = []
+        for c in lst:
+            cost.append(c.get_converted_mana_cost())
+        # todo: here complete CLI mana curve

@@ -9,7 +9,7 @@ import json, re
 import urllib.request as ur
 
 
-class Card:
+class Card(object):
     def __init__(self, block, number):
         self.block = block
         self.number = number

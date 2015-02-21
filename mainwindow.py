@@ -22,13 +22,27 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.base_deck = Deck("base_deck", self)
         self.setupUi(self)
 
-        # signals
+        # Signals
+        self.connect_signals()
+
+    def connect_signals(self):
         self.actionLoad_Deck.triggered.connect(self.open_file_dialog)
         self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
-        self.comboBox_type_base.activated.connect(self.process_filter_base)
         self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
-
         self.listView_base.clicked.connect(self.update_card_view)
+
+        self.comboBox_type_base.activated.connect(self.process_filter_base)
+        self.comboBox_mana_base.activated.connect(self.process_filter_base)
+        self.comboBox_ability_base.activated.connect(self.process_filter_base)
+        self.checkBox_r_base.clicked.connect(self.process_filter_base)
+        self.checkBox_u_base.clicked.connect(self.process_filter_base)
+        self.checkBox_b_base.clicked.connect(self.process_filter_base)
+        self.checkBox_w_base.clicked.connect(self.process_filter_base)
+        self.checkBox_g_base.clicked.connect(self.process_filter_base)
+        self.checkBox_cl_base.clicked.connect(self.process_filter_base)
+        self.checkBox_unique_base.clicked.connect(self.process_filter_base)
+        self.checkBox_mono_base.clicked.connect(self.process_filter_base)
+        self.spinBox_mana_base.valueChanged.connect(self.process_filter_base)
 
     def update_text_field(self, text):
         self.textEdit.append(text)
@@ -85,19 +99,19 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         cl = self.checkBox_cl_base.isChecked()
 
         if r:
-            lst_out.extend(Deck.get_reds(lst))
+            lst_out.extend(Deck.get_reds(lst, self.checkBox_mono_base.isChecked()))
 
         if g:
-            lst_out.extend(Deck.get_greens(lst))
+            lst_out.extend(Deck.get_greens(lst, self.checkBox_mono_base.isChecked()))
 
         if w:
-            lst_out.extend(Deck.get_whites(lst))
+            lst_out.extend(Deck.get_whites(lst, self.checkBox_mono_base.isChecked()))
 
         if u:
-            lst_out.extend(Deck.get_blues(lst))
+            lst_out.extend(Deck.get_blues(lst, self.checkBox_mono_base.isChecked()))
 
         if b:
-            lst_out.extend(Deck.get_blacks(lst))
+            lst_out.extend(Deck.get_blacks(lst, self.checkBox_mono_base.isChecked()))
 
         if cl:
             lst_out.extend(Deck.get_colorless(lst))

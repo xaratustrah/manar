@@ -33,7 +33,7 @@ class Deck:
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
                 self.add_card(cc)
                 # self.unique_card_list = self.get_unique_list(self.card_list)
-                #self.nonland_card_list = self.get_nonland()
+                # self.nonland_card_list = self.get_nonland()
 
     def add_card(self, card):
         self.card_list.append(card)
@@ -87,7 +87,6 @@ class Deck:
     @staticmethod
     def get_unique_list(lst_in):
         lst_out = []
-        lst_out = []
         for c in lst_in:
             if c.__str__() not in lst_out:
                 lst_out.append(c.__str__())
@@ -95,43 +94,73 @@ class Deck:
         return lst_out
 
     @staticmethod
-    def get_whites(lst_in):
+    def get_whites(lst_in, mono=False):
         lst_out = []
         for c in lst_in:
-            if '{W}' in c.get_mana_cost():
-                lst_out.append(c)
+            mc = c.get_mana_cost()
+            if '{W}' in mc:
+                if mono:
+                    if not ('{U}' in mc or '{B}' in mc or '{R}' in mc or '{G}'in mc):
+                        lst_out.append(c)
+                else:
+                    lst_out.append(c)
+
         return lst_out
 
     @staticmethod
-    def get_blues(lst_in):
+    def get_blues(lst_in, mono=False):
         lst_out = []
         for c in lst_in:
-            if '{U}' in c.get_mana_cost():
-                lst_out.append(c)
+            mc = c.get_mana_cost()
+            if '{U}' in mc:
+                if mono:
+                    if not ('{W}' in mc or '{B}' in mc or '{R}' in mc or '{G}'in mc):
+                        lst_out.append(c)
+                else:
+                    lst_out.append(c)
+
         return lst_out
 
     @staticmethod
-    def get_blacks(lst):
+    def get_blacks(lst_in, mono=False):
         lst_out = []
-        for c in lst:
-            if '{B}' in c.get_mana_cost():
-                lst_out.append(c)
+        for c in lst_in:
+            mc = c.get_mana_cost()
+            if '{B}' in mc:
+                if mono:
+                    if not ('{U}' in mc or '{W}' in mc or '{R}' in mc or '{G}' in mc):
+                        lst_out.append(c)
+                else:
+                    lst_out.append(c)
+
         return lst_out
 
     @staticmethod
-    def get_reds(lst):
+    def get_reds(lst_in, mono=False):
         lst_out = []
-        for c in lst:
-            if '{R}' in c.get_mana_cost():
-                lst_out.append(c)
+        for c in lst_in:
+            mc = c.get_mana_cost()
+            if '{R}' in mc:
+                if mono:
+                    if not ('{U}' in mc or '{B}' in mc or '{W}' in mc or '{G}' in mc):
+                        lst_out.append(c)
+                else:
+                    lst_out.append(c)
+
         return lst_out
 
     @staticmethod
-    def get_greens(lst):
+    def get_greens(lst_in, mono=False):
         lst_out = []
-        for c in lst:
-            if '{G}' in c.get_mana_cost():
-                lst_out.append(c)
+        for c in lst_in:
+            mc = c.get_mana_cost()
+            if '{G}' in mc:
+                if mono:
+                    if not ('{U}' in mc or '{B}' in mc or '{R}' in mc or '{W}' in mc):
+                        lst_out.append(c)
+                else:
+                    lst_out.append(c)
+
         return lst_out
 
     @staticmethod

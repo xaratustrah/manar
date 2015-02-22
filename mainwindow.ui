@@ -791,12 +791,12 @@
      <string>Deck</string>
     </property>
     <addaction name="actionLoad_Deck"/>
+    <addaction name="actionAppend_Deck"/>
     <addaction name="actionSave_Deck"/>
     <addaction name="separator"/>
     <addaction name="actionDownload_Images"/>
     <addaction name="separator"/>
     <addaction name="actionManaRlize"/>
-    <addaction name="actionUpdate_Mana_Curve"/>
     <addaction name="actionGet_Statistics"/>
    </widget>
    <widget class="QMenu" name="menuCard">
@@ -845,10 +845,8 @@
    <property name="text">
     <string>Get Statistics</string>
    </property>
-  </action>
-  <action name="actionUpdate_Mana_Curve">
-   <property name="text">
-    <string>Update Mana Curve</string>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
   <action name="actionPrint_JSON">
@@ -860,10 +858,16 @@
    <property name="text">
     <string>Next Card in Deck</string>
    </property>
+   <property name="shortcut">
+    <string>Right</string>
+   </property>
   </action>
   <action name="actionPrev_Card_in_Deck">
    <property name="text">
     <string>Prev Card in Deck</string>
+   </property>
+   <property name="shortcut">
+    <string>Left</string>
    </property>
   </action>
   <action name="actionDownload_Images">
@@ -872,6 +876,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionAppend_Deck">
+   <property name="text">
+    <string>Append Deck</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
  </widget>

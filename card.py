@@ -71,6 +71,6 @@ class Card(object):
     def download_image(self, url, folder):
         # if not os.path.exists(self.name):
         g = ur.urlopen(url)
-        with open('./{}/{}.jpg'.format(folder, self.get_uid()), 'b+w') as f:
+        with open('{}/{}.jpg'.format(folder, self.get_uid()), 'b+w') as f:
             f.write(g.read())
         return

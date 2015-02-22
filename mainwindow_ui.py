@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Sun Feb 22 00:15:29 2015
+# Created: Sun Feb 22 18:03:43 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -316,8 +316,6 @@ class Ui_MainWindow(object):
         self.actionManaRlize.setObjectName("actionManaRlize")
         self.actionGet_Statistics = QtWidgets.QAction(MainWindow)
         self.actionGet_Statistics.setObjectName("actionGet_Statistics")
-        self.actionUpdate_Mana_Curve = QtWidgets.QAction(MainWindow)
-        self.actionUpdate_Mana_Curve.setObjectName("actionUpdate_Mana_Curve")
         self.actionPrint_JSON = QtWidgets.QAction(MainWindow)
         self.actionPrint_JSON.setObjectName("actionPrint_JSON")
         self.actionNext_Card_in_Deck = QtWidgets.QAction(MainWindow)
@@ -326,13 +324,15 @@ class Ui_MainWindow(object):
         self.actionPrev_Card_in_Deck.setObjectName("actionPrev_Card_in_Deck")
         self.actionDownload_Images = QtWidgets.QAction(MainWindow)
         self.actionDownload_Images.setObjectName("actionDownload_Images")
+        self.actionAppend_Deck = QtWidgets.QAction(MainWindow)
+        self.actionAppend_Deck.setObjectName("actionAppend_Deck")
         self.menuDeck.addAction(self.actionLoad_Deck)
+        self.menuDeck.addAction(self.actionAppend_Deck)
         self.menuDeck.addAction(self.actionSave_Deck)
         self.menuDeck.addSeparator()
         self.menuDeck.addAction(self.actionDownload_Images)
         self.menuDeck.addSeparator()
         self.menuDeck.addAction(self.actionManaRlize)
-        self.menuDeck.addAction(self.actionUpdate_Mana_Curve)
         self.menuDeck.addAction(self.actionGet_Statistics)
         self.menuCard.addAction(self.actionPrint_URL)
         self.menuCard.addAction(self.actionPrint_JSON)
@@ -440,10 +440,14 @@ class Ui_MainWindow(object):
         self.actionManaRlize.setText(_translate("MainWindow", "ManaRlize"))
         self.actionManaRlize.setShortcut(_translate("MainWindow", "Ctrl+M"))
         self.actionGet_Statistics.setText(_translate("MainWindow", "Get Statistics"))
-        self.actionUpdate_Mana_Curve.setText(_translate("MainWindow", "Update Mana Curve"))
+        self.actionGet_Statistics.setShortcut(_translate("MainWindow", "Ctrl+T"))
         self.actionPrint_JSON.setText(_translate("MainWindow", "Print JSON"))
         self.actionNext_Card_in_Deck.setText(_translate("MainWindow", "Next Card in Deck"))
+        self.actionNext_Card_in_Deck.setShortcut(_translate("MainWindow", "Right"))
         self.actionPrev_Card_in_Deck.setText(_translate("MainWindow", "Prev Card in Deck"))
+        self.actionPrev_Card_in_Deck.setShortcut(_translate("MainWindow", "Left"))
         self.actionDownload_Images.setText(_translate("MainWindow", "Download Images"))
         self.actionDownload_Images.setShortcut(_translate("MainWindow", "Ctrl+D"))
+        self.actionAppend_Deck.setText(_translate("MainWindow", "Append Deck"))
+        self.actionAppend_Deck.setShortcut(_translate("MainWindow", "Ctrl+A"))
 

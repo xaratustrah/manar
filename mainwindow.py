@@ -19,7 +19,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         super(mainWindow, self).__init__()
 
         # Set up the user interface from Designer.
-        self.base_deck = Deck("base_deck", self)
+        self.base_deck = Deck(self)
         self.setupUi(self)
 
         # Signals

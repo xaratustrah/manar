@@ -12,10 +12,9 @@ from card import Card
 
 
 class Deck(object):
-    def __init__(self, name, view):
+    def __init__(self, view):
         self.card_list = []
         self.nonland_card_list = []
-        self.name = name
         self.view = view
 
     def __str__(self):
@@ -33,6 +32,7 @@ class Deck(object):
 
     def make_from_file(self, filename):
         cards_file = np.genfromtxt(filename, dtype=None)
+        self.name = os.path.splitext(filename)[0]
         for i in range(len(cards_file)):
             for j in range(cards_file[i][2]):
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
@@ -105,7 +105,7 @@ class Deck(object):
             mc = c.get_mana_cost()
             if '{W}' in mc:
                 if mono:
-                    if not ('{U}' in mc or '{B}' in mc or '{R}' in mc or '{G}'in mc):
+                    if not ('{U}' in mc or '{B}' in mc or '{R}' in mc or '{G}' in mc):
                         lst_out.append(c)
                 else:
                     lst_out.append(c)
@@ -119,7 +119,7 @@ class Deck(object):
             mc = c.get_mana_cost()
             if '{U}' in mc:
                 if mono:
-                    if not ('{W}' in mc or '{B}' in mc or '{R}' in mc or '{G}'in mc):
+                    if not ('{W}' in mc or '{B}' in mc or '{R}' in mc or '{G}' in mc):
                         lst_out.append(c)
                 else:
                     lst_out.append(c)
@@ -202,4 +202,4 @@ class Deck(object):
         cost = []
         for c in lst:
             cost.append(c.get_converted_mana_cost())
-        # todo: here complete CLI mana curve
+            # todo: here complete CLI mana curve

@@ -1,6 +1,6 @@
 # ManaR
 
-ManaR (previously called PyMTG) is yet another Magic: The Gathering (TM) utility written in Python. Organize your MTG cards, deck and strategy using an object oriented interface to mtg cards. It uses the JSON database files from [http://mtgjson.com/](http://mtgjson.com/). So please download the set files from there.
+ManaR (previously called PyMTG) is yet another Magic: The Gathering (TM) utility written in Python. Organize your MTG cards, deck and strategy using an object oriented interface to mtg cards. It uses the JSON database files from [http://mtgjson.com/](http://mtgjson.com/). So please download the set files from there. Copyright notice: Magic: The Gathering (TM) and all card names and artworks are copyrighted material and belong to their owners.
 
 ![image](rsrc/screenshot.png)
 

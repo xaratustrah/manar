@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>978</width>
+    <width>985</width>
     <height>713</height>
    </rect>
   </property>
@@ -17,9 +17,9 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>630</x>
       <y>10</y>
-      <width>342</width>
+      <width>341</width>
       <height>494</height>
      </rect>
     </property>
@@ -32,18 +32,22 @@
     <property name="title">
      <string>Card view</string>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QGraphicsView" name="graphicsView_card">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGraphicsView" name="graphicsView_card">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>320</width>
+       <height>450</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
@@ -77,71 +81,9 @@
      </rect>
     </property>
     <property name="title">
-     <string>Base Deck</string>
+     <string>Filters</string>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QListView" name="listView_base">
-       <property name="movement">
-        <enum>QListView::Snap</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="label_type_base">
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox_type_base">
-         <item>
-          <property name="text">
-           <string>All Cards</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Artifact</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Creature</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Enchantment</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Instant</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Land</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Planeswalker</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Sorcery</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </item>
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -227,17 +169,89 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox_unique_base">
+        <widget class="QLabel" name="label_color">
          <property name="text">
-          <string>Unique</string>
+          <string>Color</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_mono_base">
+        <widget class="QRadioButton" name="radioButton_mono_base">
          <property name="text">
-          <string>Mono Color</string>
+          <string>mono</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_dual_base">
+         <property name="text">
+          <string>dual</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_multi_base">
+         <property name="text">
+          <string>multi</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_type_base">
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_type_base">
+         <item>
+          <property name="text">
+           <string>All Cards</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Artifact</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Creature</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Enchantment</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Instant</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Land</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Planeswalker</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sorcery</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
@@ -298,7 +312,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="label_ability_base">
          <property name="text">
           <string>Ability/Mechanic</string>
          </property>
@@ -411,83 +425,59 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_manarlize">
-       <property name="text">
-        <string>ManaRlize</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_base_2">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>311</width>
-      <height>491</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>New Deck</string>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QListView" name="listView_base_2">
-       <property name="movement">
-        <enum>QListView::Snap</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QLabel" name="label_type_base_2">
+        <widget class="QLabel" name="label_subtype_base">
          <property name="text">
-          <string>Type</string>
+          <string>Sub Type</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_type_base_2">
+        <widget class="QComboBox" name="comboBox_subtype_base">
          <item>
           <property name="text">
-           <string>All Cards</string>
+           <string>Any</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Artifact</string>
+           <string>Assassin</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Creature</string>
+           <string>Beast</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Enchantment</string>
+           <string>Dragon</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Instant</string>
+           <string>Goblin</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Land</string>
+           <string>Human</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Planeswalker</string>
+           <string>Orc</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Sorcery</string>
+           <string>Soldier</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Warrior</string>
           </property>
          </item>
         </widget>
@@ -497,81 +487,39 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QCheckBox" name="checkBox_r_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(128, 0, 0)</string>
-         </property>
+        <widget class="QLabel" name="label_rarity_base">
          <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
+          <string>Rarity</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_g_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(0, 128, 0)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_w_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(255, 255, 255)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_u_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(0, 0, 255)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_b_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(0, 0, 0)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_cl_base_2">
-         <property name="styleSheet">
-          <string notr="true">background-color:rgb(128, 128, 128)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
+        <widget class="QComboBox" name="comboBox_rarity_base">
+         <item>
+          <property name="text">
+           <string>Any</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Common</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Uncommon</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Rare</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Mythic Rare</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
@@ -579,16 +527,23 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
-        <widget class="QCheckBox" name="checkBox_unique_base_2">
+        <widget class="QPushButton" name="pushButton_load">
          <property name="text">
-          <string>Unique</string>
+          <string>Load</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_mono_base_2">
+        <widget class="QPushButton" name="pushButton_clear">
          <property name="text">
-          <string>Mono Color</string>
+          <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_save">
+         <property name="text">
+          <string>Save</string>
          </property>
         </widget>
        </item>
@@ -597,175 +552,86 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <widget class="QLabel" name="labe_mana_base_2">
+        <widget class="QPushButton" name="pushButton_stat">
          <property name="text">
-          <string>Mana Cost</string>
+          <string>Statistics</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_mana_base_2">
-         <item>
-          <property name="text">
-           <string>&gt;=</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>=</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>&lt;</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>&lt;=</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>&gt;</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="spinBox_mana_base_2">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>50</number>
-         </property>
-         <property name="value">
-          <number>1</number>
+        <widget class="QPushButton" name="pushButton_manarlize">
+         <property name="text">
+          <string>ManaRlize</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_base_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>311</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Deck List</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_10">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Ability/Mechanic</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox_ability_base_2">
-         <item>
-          <property name="text">
-           <string>Any</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Bolster</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Dash</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Dearthtouch</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Delve</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Ferocious</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Flash</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Flying</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Haste</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Hexproof</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Indestructible</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Lifelink</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Manifest</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Morph</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Outlast</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Protection</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Prowess</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Raid</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Reach</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Vigilance</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QListView" name="listView_base">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="defaultDropAction">
+        <enum>Qt::CopyAction</enum>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
+       <property name="movement">
+        <enum>QListView::Snap</enum>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_manarlize_2">
-       <property name="text">
-        <string>ManaRlize</string>
+      <widget class="QListView" name="listView_new">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropOverwriteMode">
+        <bool>false</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragDrop</enum>
+       </property>
+       <property name="defaultDropAction">
+        <enum>Qt::CopyAction</enum>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
+       <property name="movement">
+        <enum>QListView::Snap</enum>
        </property>
       </widget>
      </item>
@@ -782,7 +648,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>978</width>
+     <width>985</width>
      <height>22</height>
     </rect>
    </property>
@@ -791,10 +657,11 @@
      <string>Deck</string>
     </property>
     <addaction name="actionLoad_Deck"/>
+    <addaction name="actionClear_Deck"/>
     <addaction name="actionAppend_Deck"/>
-    <addaction name="actionSave_Deck"/>
-    <addaction name="separator"/>
     <addaction name="actionDownload_Images"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Deck"/>
     <addaction name="separator"/>
     <addaction name="actionManaRlize"/>
     <addaction name="actionGet_Statistics"/>
@@ -806,8 +673,6 @@
     <addaction name="actionPrint_URL"/>
     <addaction name="actionPrint_JSON"/>
     <addaction name="separator"/>
-    <addaction name="actionNext_Card_in_Deck"/>
-    <addaction name="actionPrev_Card_in_Deck"/>
    </widget>
    <addaction name="menuDeck"/>
    <addaction name="menuCard"/>
@@ -884,6 +749,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionClear_Deck">
+   <property name="text">
+    <string>Clear Deck</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

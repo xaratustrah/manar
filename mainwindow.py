@@ -20,39 +20,58 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         # Set up the user interface from Designer.
         self.base_deck = Deck(self)
+        self.new_deck = Deck(self)
         self.setupUi(self)
 
         # Signals
         self.connect_signals()
 
     def connect_signals(self):
-        self.actionLoad_Deck.triggered.connect(self.open_file_dialog)
         self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
+
+        self.actionLoad_Deck.triggered.connect(self.open_file_dialog)
+        self.pushButton_load.clicked.connect(self.open_file_dialog)
+
+        self.actionSave_Deck.triggered.connect(self.save_file_dialog)
+        self.pushButton_save.clicked.connect(self.save_file_dialog)
+
+        self.actionClear_Deck.triggered.connect(self.clear_base_deck_list)
+        self.pushButton_clear.clicked.connect(self.clear_base_deck_list)
+
         self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
+
         self.listView_base.clicked.connect(self.update_card_view)
+        self.listView_base.doubleClicked.connect(self.update_new_deck_list_view)
 
         self.comboBox_type_base.activated.connect(self.process_filter_base)
         self.comboBox_mana_base.activated.connect(self.process_filter_base)
         self.comboBox_ability_base.activated.connect(self.process_filter_base)
+        self.comboBox_subtype_base.activated.connect(self.process_filter_base)
+        self.comboBox_rarity_base.activated.connect(self.process_filter_base)
         self.checkBox_r_base.clicked.connect(self.process_filter_base)
         self.checkBox_u_base.clicked.connect(self.process_filter_base)
         self.checkBox_b_base.clicked.connect(self.process_filter_base)
         self.checkBox_w_base.clicked.connect(self.process_filter_base)
         self.checkBox_g_base.clicked.connect(self.process_filter_base)
         self.checkBox_cl_base.clicked.connect(self.process_filter_base)
-        self.checkBox_unique_base.clicked.connect(self.process_filter_base)
-        self.checkBox_mono_base.clicked.connect(self.process_filter_base)
+        self.radioButton_mono_base.clicked.connect(self.process_filter_base)
+        self.radioButton_dual_base.clicked.connect(self.process_filter_base)
+        self.radioButton_multi_base.clicked.connect(self.process_filter_base)
         self.spinBox_mana_base.valueChanged.connect(self.process_filter_base)
 
     def update_text_field(self, text):
         self.textEdit.append(text)
 
-    def update_card_view(self, index):
+    def update_new_deck_list_view(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
-        pic_filename = self.base_deck.get_filename_from_name(card_name)
-        scene = QGraphicsScene()
-        scene.addPixmap(QPixmap(pic_filename))
-        self.graphicsView_card.setScene(scene)
+        card_object = self.base_deck.get_card_from_name(card_name)
+        self.new_deck.add_card(card_object)
+        model_new = QStandardItemModel(self.listView_base)
+        for c in self.new_deck.card_list:
+            item = QStandardItem(c.__str__())
+            model_new.appendRow(item)
+        self.listView_new.setModel(model_new)
+        self.listView_new.show()
 
     def update_base_deck_list_view(self, lst):
         model_base = QStandardItemModel(self.listView_base)
@@ -62,8 +81,27 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.listView_base.setModel(model_base)
         self.listView_base.show()
 
+    def clear_base_deck_list(self):
+        self.base_deck.card_list = []
+        self.update_base_deck_list_view(self.base_deck.card_list)
+
+    def update_card_view(self, index):
+        card_name = self.listView_base.model().itemData(index)[0]
+        pic_filename = self.base_deck.get_filename_from_name(card_name)
+        scene = QGraphicsScene()
+        scene.addPixmap(QPixmap(pic_filename))
+        self.graphicsView_card.setScene(scene)
+
+    def save_file_dialog(self):
+        fileName, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
+                                                  "Tab separated values (*.csv)")  # ;;All Files (*)"
+        if not fileName:
+            return
+
+        self.new_deck.save_to_disk(fileName)
+
     def open_file_dialog(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '', "All Files (*)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '', "Tab separated values (*.csv)")
 
         if not file_name:
             return
@@ -76,6 +114,8 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     def process_filter_base(self):
         typ = self.comboBox_type_base.currentText()
         ability = self.comboBox_ability_base.currentText()
+        subtype = self.comboBox_subtype_base.currentText()
+        rarity = self.comboBox_rarity_base.currentText()
 
         if typ == 'All Cards':
             lst = self.base_deck.card_list
@@ -99,19 +139,19 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         cl = self.checkBox_cl_base.isChecked()
 
         if r:
-            lst_out.extend(Deck.get_reds(lst, self.checkBox_mono_base.isChecked()))
+            lst_out.extend(Deck.get_reds(lst, self.radioButton_mono_base.isChecked()))
 
         if g:
-            lst_out.extend(Deck.get_greens(lst, self.checkBox_mono_base.isChecked()))
+            lst_out.extend(Deck.get_greens(lst, self.radioButton_mono_base.isChecked()))
 
         if w:
-            lst_out.extend(Deck.get_whites(lst, self.checkBox_mono_base.isChecked()))
+            lst_out.extend(Deck.get_whites(lst, self.radioButton_mono_base.isChecked()))
 
         if u:
-            lst_out.extend(Deck.get_blues(lst, self.checkBox_mono_base.isChecked()))
+            lst_out.extend(Deck.get_blues(lst, self.radioButton_mono_base.isChecked()))
 
         if b:
-            lst_out.extend(Deck.get_blacks(lst, self.checkBox_mono_base.isChecked()))
+            lst_out.extend(Deck.get_blacks(lst, self.radioButton_mono_base.isChecked()))
 
         if cl:
             lst_out.extend(Deck.get_colorless(lst))
@@ -119,17 +159,11 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         if not ability == 'Any':
             lst_out = Deck.get_cards_of_ability(lst_out, ability)
 
+        if not subtype == 'Any':
+            lst_out = Deck.get_cards_of_ability(lst_out, subtype)
+
+        if not rarity == 'Any':
+            lst_out = Deck.get_cards_of_ability(lst_out, rarity)
+
         self.update_base_deck_list_view(lst_out)
 
-        # fileName, _ = QFileDialog.getSaveFileName(self, "Export Contact", '',
-        # "vCard Files (*.vcf);;All Files (*)")
-        #
-        # if not fileName:
-        # return
-        #
-        # out_file = QFile(fileName)
-        #
-        # if not out_file.open(QIODevice.WriteOnly):
-        # QMessageBox.information(self, "Unable to open file",
-        # out_file.errorString())
-        # return

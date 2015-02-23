@@ -56,10 +56,8 @@ class Deck(object):
             self.view.update_text_field(text)
             self.card_list[i].download_image(url, self.name)
 
-    def save_to_disk(self):
-        if not os.path.exists(self.name):
-            os.makedirs(self.name)
-        with open('./{}/{}.txt'.format(self.name, self.name), 'w') as f:
+    def save_to_disk(self, filename):
+        with open(filename, 'w') as f:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
@@ -68,11 +66,32 @@ class Deck(object):
             if name == c.__str__():
                 return self.name + '/' + '{}.jpg'.format(c.get_uid())
 
+    def get_card_from_name(self, name):
+        for c in self.card_list:
+            if name == c.__str__():
+                return c
+
     @staticmethod
     def get_cards_of_type(lst_in, typ):
         lst_out = []
         for c in lst_in:
             if typ in c.get_types():
+                lst_out.append(c)
+        return lst_out
+
+    @staticmethod
+    def get_cards_of_subtype(lst_in, subtyp):
+        lst_out = []
+        for c in lst_in:
+            if subtyp in c.get_subtypes():
+                lst_out.append(c)
+        return lst_out
+
+    @staticmethod
+    def get_cards_of_rarity(lst_in, rarity):
+        lst_out = []
+        for c in lst_in:
+            if rarity in c.get_rarity():
                 lst_out.append(c)
         return lst_out
 

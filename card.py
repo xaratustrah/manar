@@ -13,6 +13,7 @@ class Card(object):
         self.block = block
         self.number = number
         self.dict = None
+        self.name = None
 
     def load_dict_from_json(self, filename):
         # with open(self.block.upper() + '.json') as json_data:
@@ -21,9 +22,10 @@ class Card(object):
         for i in range(len(data['cards'])):
             if int(data['cards'][i]['number']) == self.number:
                 self.dict = data['cards'][i]
+                self.name = self.dict['name']
 
     def __str__(self):
-        return self.dict['name']
+        return self.name
 
     def get_text(self):
         txt = ""

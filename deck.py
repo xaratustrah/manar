@@ -51,6 +51,7 @@ class Deck(object):
                     self.download_json(block)
                     self.make_from_file(filename)  # recursive call!
                     return
+        self.card_list.sort(key=lambda x: x.name)
         return
 
     def download_json(self, block):

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Mar  2 21:24:48 2015
+# Created: Tue Mar  3 23:29:46 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -359,7 +359,7 @@ class Ui_MainWindow(object):
         self.comboBox_rarity_base.setItemText(1, _translate("MainWindow", "Common"))
         self.comboBox_rarity_base.setItemText(2, _translate("MainWindow", "Uncommon"))
         self.comboBox_rarity_base.setItemText(3, _translate("MainWindow", "Rare"))
-        self.comboBox_rarity_base.setItemText(4, _translate("MainWindow", "Mythic Rare"))
+        self.comboBox_rarity_base.setItemText(4, _translate("MainWindow", "Mythic"))
         self.pushButton_load.setText(_translate("MainWindow", "Load"))
         self.pushButton_clear.setText(_translate("MainWindow", "Clear"))
         self.pushButton_save.setText(_translate("MainWindow", "Save"))

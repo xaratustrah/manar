@@ -53,7 +53,8 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
 
-        self.listView_base.clicked.connect(self.update_card_view)
+        self.listView_base.clicked.connect(self.update_card_view_base)
+        self.listView_new.clicked.connect(self.update_card_view_new)
         self.listView_base.doubleClicked.connect(self.update_new_deck_list_view)
 
         self.comboBox_type_base.activated.connect(self.process_filter_base)
@@ -107,9 +108,16 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.base_deck.card_list = []
         self.update_base_deck_list_view(self.base_deck.card_list)
 
-    def update_card_view(self, index):
+    def update_card_view_base(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
         pic_filename = self.base_deck.get_image_filename_from_name(card_name)
+        scene = QGraphicsScene()
+        scene.addPixmap(QPixmap(pic_filename))
+        self.graphicsView_card.setScene(scene)
+
+    def update_card_view_new(self, index):
+        card_name = self.listView_new.model().itemData(index)[0]
+        pic_filename = self.new_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
         scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)

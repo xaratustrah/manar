@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Feb 23 22:11:02 2015
+# Created: Mon Mar  2 21:24:48 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -237,9 +237,10 @@ class Ui_MainWindow(object):
         self.listView_new = QtWidgets.QListView(self.groupBox_base_2)
         self.listView_new.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView_new.setTabKeyNavigation(True)
+        self.listView_new.setProperty("showDropIndicator", False)
         self.listView_new.setDragDropOverwriteMode(False)
         self.listView_new.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
-        self.listView_new.setDefaultDropAction(QtCore.Qt.CopyAction)
+        self.listView_new.setDefaultDropAction(QtCore.Qt.MoveAction)
         self.listView_new.setAlternatingRowColors(True)
         self.listView_new.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.listView_new.setMovement(QtWidgets.QListView.Snap)

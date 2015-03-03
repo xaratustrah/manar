@@ -615,6 +615,9 @@
        <property name="tabKeyNavigation">
         <bool>true</bool>
        </property>
+       <property name="showDropIndicator" stdset="0">
+        <bool>false</bool>
+       </property>
        <property name="dragDropOverwriteMode">
         <bool>false</bool>
        </property>
@@ -622,7 +625,7 @@
         <enum>QAbstractItemView::DragDrop</enum>
        </property>
        <property name="defaultDropAction">
-        <enum>Qt::CopyAction</enum>
+        <enum>Qt::MoveAction</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>

@@ -5,6 +5,7 @@ Feb 2015 Xaratustrah
 
 """
 
+import os
 from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QFileDialog
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtCore import QModelIndex
@@ -22,6 +23,12 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.base_deck = Deck(self)
         self.new_deck = Deck(self)
         self.setupUi(self)
+
+        self.folder_home = os.path.expanduser('~')+'/.manar/'
+        self.folder_json = os.path.expanduser('~')+'/.manar/json/'
+        self.folder_imgdb = os.path.expanduser('~')+'/.manar/imgdb/'
+
+        self.make_folders()
 
         # Signals
         self.connect_signals()
@@ -58,6 +65,15 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.radioButton_dual_base.clicked.connect(self.process_filter_base)
         self.radioButton_multi_base.clicked.connect(self.process_filter_base)
         self.spinBox_mana_base.valueChanged.connect(self.process_filter_base)
+
+    def make_folders(self):
+        if not os.path.exists(self.folder_home):
+            os.mkdir(self.folder_home)
+        if not os.path.exists(self.folder_json):
+            os.mkdir(self.folder_json)
+        if not os.path.exists(self.folder_imgdb):
+            os.mkdir(self.folder_imgdb)
+        return
 
     def update_text_field(self, text):
         self.textEdit.append(text)

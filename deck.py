@@ -14,8 +14,8 @@ from card import Card
 class Deck(object):
     def __init__(self, view):
         self.card_list = []
-        self.nonland_card_list = []
         self.view = view
+        self.name = ''
 
     def __str__(self):
         out = ''
@@ -37,8 +37,6 @@ class Deck(object):
             for j in range(cards_file[i][2]):
                 cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
                 self.add_card(cc)
-                # self.unique_card_list = self.get_unique_list(self.card_list)
-                # self.nonland_card_list = self.get_nonland()
 
     def add_card(self, card):
         self.card_list.append(card)

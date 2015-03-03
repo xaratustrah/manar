@@ -20,14 +20,20 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         super(mainWindow, self).__init__()
 
         # Set up the user interface from Designer.
-        self.base_deck = Deck(self)
-        self.new_deck = Deck(self)
-        self.setupUi(self)
 
         self.folder_home = os.path.expanduser('~')+'/.manar/'
         self.folder_json = os.path.expanduser('~')+'/.manar/json/'
         self.folder_imgdb = os.path.expanduser('~')+'/.manar/imgdb/'
 
+        self.base_deck = Deck(self)
+        self.base_deck.folder_json = self.folder_json
+        self.base_deck.folder_imgdb = self.folder_imgdb
+
+        self.new_deck = Deck(self)
+        self.new_deck.folder_json = self.folder_json
+        self.new_deck.folder_imgdb = self.folder_imgdb
+
+        self.setupUi(self)
         self.make_folders()
 
         # Signals
@@ -75,8 +81,8 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             os.mkdir(self.folder_imgdb)
         return
 
-    def update_text_field(self, text):
-        self.textEdit.append(text)
+    def update_text_field(self, message):
+        self.textEdit.append(message)
 
     def update_new_deck_list_view(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
@@ -103,7 +109,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     def update_card_view(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
-        pic_filename = self.base_deck.get_filename_from_name(card_name)
+        pic_filename = self.base_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
         scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)

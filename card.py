@@ -6,14 +6,17 @@ Feb 2015 Xaratustrah
 """
 
 import json, re
-import urllib.request as ur
 
 
 class Card(object):
     def __init__(self, block, number):
         self.block = block
         self.number = number
-        with open(self.block.upper() + '.json') as json_data:
+        self.dict = None
+
+    def load_dict_from_json(self, filename):
+        # with open(self.block.upper() + '.json') as json_data:
+        with open(filename) as json_data:
             data = json.load(json_data)
         for i in range(len(data['cards'])):
             if int(data['cards'][i]['number']) == self.number:
@@ -62,15 +65,9 @@ class Card(object):
         return 'http://magiccards.info/{}/en/{}.html'.format(self.block, self.number).lower()
 
     def get_image_url(self, size='small'):
+        url = ''
         if size == 'medium':
             url = 'http://mtgimage.com/multiverseid/{}.jpg'.format(self.get_uid())
         elif size == 'small':
             url = 'http://magiccards.info/scans/en/{}/{}.jpg'.format(self.block, self.number).lower()
         return url
-
-    def download_image(self, url, folder):
-        # if not os.path.exists(self.name):
-        g = ur.urlopen(url)
-        with open('{}/{}.jpg'.format(folder, self.get_uid()), 'b+w') as f:
-            f.write(g.read())
-        return

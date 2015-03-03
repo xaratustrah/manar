@@ -8,6 +8,7 @@ Feb 2015 Xaratustrah
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import urllib.request as ur
 from card import Card
 
 
@@ -16,6 +17,8 @@ class Deck(object):
         self.card_list = []
         self.view = view
         self.name = ''
+        self.folder_json = ''
+        self.folder_imgdb = ''
 
     def __str__(self):
         out = ''
@@ -35,8 +38,25 @@ class Deck(object):
         self.name = os.path.splitext(filename)[0]
         for i in range(len(cards_file)):
             for j in range(cards_file[i][2]):
-                cc = Card(cards_file[i][0].decode("utf-8"), cards_file[i][1])
-                self.add_card(cc)
+                block = cards_file[i][0].decode("utf-8")
+                number = cards_file[i][1]
+                cc = Card(block, number)
+                json_filename = self.folder_json + block + '.json'
+                if os.path.exists(json_filename):
+                    cc.load_dict_from_json(json_filename)
+                    self.add_card(cc)
+                else:
+                    self.view.update_text_field(
+                        'File {} does not exist. Downloading ...'.format(json_filename))
+                    self.download_json(block)
+                    self.make_from_file(filename)  # recursive call!
+                    return
+        return
+
+    def download_json(self, block):
+        g = ur.urlopen('http://mtgjson.com/json/{}.json'.format(block))
+        with open(self.folder_json + '{}.json'.format(block), 'b+w') as f:
+            f.write(g.read())
 
     def add_card(self, card):
         self.card_list.append(card)
@@ -46,23 +66,25 @@ class Deck(object):
         self.view.update_text_field(text)
 
     def download_images(self):
-        if not os.path.exists(self.name):
-            os.makedirs(self.name)
         for i in range(len(self.card_list)):
-            url = self.card_list[i].get_image_url(size='small')
-            text = '--> Retrieving image of {} from {}'.format(self.card_list[i], url)
-            self.view.update_text_field(text)
-            self.card_list[i].download_image(url, self.name)
+            img_filename = self.folder_imgdb + '{}.jpg'.format(self.card_list[i].get_uid())
+            if not os.path.exists(img_filename):
+                url = self.card_list[i].get_image_url(size='small')
+                message = '--> Retrieving image of {} from {}'.format(self.card_list[i], url)
+                self.view.update_text_field(message)
+                g = ur.urlopen(url)
+                with open(img_filename, 'b+w') as f:
+                    f.write(g.read())
 
     def save_to_disk(self, filename):
         with open(filename, 'w') as f:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
-    def get_filename_from_name(self, name):
+    def get_image_filename_from_name(self, name):
         for c in self.card_list:
             if name == c.__str__():
-                return self.name + '/' + '{}.jpg'.format(c.get_uid())
+                return self.folder_imgdb + '{}.jpg'.format(c.get_uid())
 
     def get_card_from_name(self, name):
         for c in self.card_list:

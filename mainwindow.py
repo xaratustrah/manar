@@ -8,6 +8,7 @@ Feb 2015 Xaratustrah
 import os
 from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QFileDialog
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QKeyEvent
+from PyQt5.QtCore import Qt
 from mainwindow_ui import Ui_MainWindow
 
 from deck import Deck
@@ -47,7 +48,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.listView_new_model = QStandardItemModel()
         self.listView_new.setModel(self.listView_new_model)
         self.listView_new_selection_model = self.listView_new.selectionModel()  # workaround
-        self.listView_new_selection_model.selectionChanged.connect(self.on_new_deck_listView_selection_changed)
+        self.listView_new_selection_model.selectionChanged.connect(self.on_new_deck_list_view_selection_changed)
 
     def connect_signals(self):
         self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
@@ -121,10 +122,10 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     ## --- new deck -- ##
 
-    def on_new_deck_listView_selection_changed(self, current, previous):
+    def on_new_deck_list_view_selection_changed(self, current, previous):
         items = current.indexes()
         for index in items:
-            #print(index.row(), index.column())
+            # print(index.row(), index.column())
             self.on_update_card_view_new(index)  # wheewwww!
 
     def on_update_card_view_new(self, index):
@@ -168,7 +169,6 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         self.base_deck.make_from_file(file_name)
         lst = self.base_deck.card_list
-        # lst = Deck.get_unique_list(lst)
         self.update_base_deck_list_view(lst)
 
     def on_process_filter_base(self):
@@ -240,9 +240,11 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     def keyPressEvent(self, event):
         if type(event) == QKeyEvent:
             # here accept the event and do something
-            if event.key() == 16777220:  # code enter key
-                # self.update_card_view_new()
+            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:  # code enter key
                 print('Enter key pressed!')
+            event.accept()
+            if event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:  # code enter key
+                print('Delete key pressed!')
             event.accept()
         else:
             event.ignore()

@@ -525,7 +525,21 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Base Deck</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="pushButton_load">
          <property name="text">
@@ -534,9 +548,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_clear">
+        <widget class="QPushButton" name="pushButton_clear_base">
          <property name="text">
           <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>New Deck</string>
          </property>
         </widget>
        </item>
@@ -547,7 +572,21 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_clear_new">
+         <property name="text">
+          <string>Clear</string>
+         </property>
+        </widget>
+       </item>
       </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -591,7 +630,10 @@
         <bool>true</bool>
        </property>
        <property name="dragEnabled">
-        <bool>true</bool>
+        <bool>false</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragOnly</enum>
        </property>
        <property name="defaultDropAction">
         <enum>Qt::CopyAction</enum>
@@ -600,7 +642,7 @@
         <bool>true</bool>
        </property>
        <property name="selectionMode">
-        <enum>QAbstractItemView::ExtendedSelection</enum>
+        <enum>QAbstractItemView::SingleSelection</enum>
        </property>
        <property name="movement">
         <enum>QListView::Snap</enum>
@@ -622,16 +664,16 @@
         <bool>false</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::DragDrop</enum>
+        <enum>QAbstractItemView::DragOnly</enum>
        </property>
        <property name="defaultDropAction">
-        <enum>Qt::MoveAction</enum>
+        <enum>Qt::CopyAction</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
        <property name="selectionMode">
-        <enum>QAbstractItemView::ExtendedSelection</enum>
+        <enum>QAbstractItemView::SingleSelection</enum>
        </property>
        <property name="movement">
         <enum>QListView::Snap</enum>
@@ -659,12 +701,13 @@
     <property name="title">
      <string>Deck</string>
     </property>
-    <addaction name="actionLoad_Deck"/>
-    <addaction name="actionClear_Deck"/>
-    <addaction name="actionAppend_Deck"/>
-    <addaction name="actionDownload_Images"/>
+    <addaction name="actionLoad_Base_Deck"/>
+    <addaction name="actionClear_Base_Deck"/>
     <addaction name="separator"/>
-    <addaction name="actionSave_Deck"/>
+    <addaction name="actionSave_New_Deck"/>
+    <addaction name="actionClear_New_Deck"/>
+    <addaction name="separator"/>
+    <addaction name="actionDownload_Images"/>
     <addaction name="separator"/>
     <addaction name="actionManaRlize"/>
     <addaction name="actionGet_Statistics"/>
@@ -680,17 +723,17 @@
    <addaction name="menuDeck"/>
    <addaction name="menuCard"/>
   </widget>
-  <action name="actionLoad_Deck">
+  <action name="actionLoad_Base_Deck">
    <property name="text">
-    <string>Load Deck</string>
+    <string>Load Base Deck</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave_Deck">
+  <action name="actionSave_New_Deck">
    <property name="text">
-    <string>Save Deck</string>
+    <string>Save New Deck</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -722,22 +765,6 @@
     <string>Print JSON</string>
    </property>
   </action>
-  <action name="actionNext_Card_in_Deck">
-   <property name="text">
-    <string>Next Card in Deck</string>
-   </property>
-   <property name="shortcut">
-    <string>Right</string>
-   </property>
-  </action>
-  <action name="actionPrev_Card_in_Deck">
-   <property name="text">
-    <string>Prev Card in Deck</string>
-   </property>
-   <property name="shortcut">
-    <string>Left</string>
-   </property>
-  </action>
   <action name="actionDownload_Images">
    <property name="text">
     <string>Download Images</string>
@@ -746,20 +773,14 @@
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionAppend_Deck">
+  <action name="actionClear_Base_Deck">
    <property name="text">
-    <string>Append Deck</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Clear Base Deck</string>
    </property>
   </action>
-  <action name="actionClear_Deck">
+  <action name="actionClear_New_Deck">
    <property name="text">
-    <string>Clear Deck</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+L</string>
+    <string>Clear New Deck</string>
    </property>
   </action>
  </widget>

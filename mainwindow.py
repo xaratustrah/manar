@@ -42,105 +42,122 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.listView_base_model = QStandardItemModel()
         self.listView_base.setModel(self.listView_base_model)
         self.listView_base_selection_model = self.listView_base.selectionModel()  # workaround
-        self.listView_base_selection_model.selectionChanged.connect(self.on_row_changed)
+        self.listView_base_selection_model.selectionChanged.connect(self.on_base_deck_list_view_selection_changed)
 
+        self.listView_new_model = QStandardItemModel()
+        self.listView_new.setModel(self.listView_new_model)
+        self.listView_new_selection_model = self.listView_new.selectionModel()  # workaround
+        self.listView_new_selection_model.selectionChanged.connect(self.on_new_deck_listView_selection_changed)
 
     def connect_signals(self):
         self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
 
-        self.actionLoad_Deck.triggered.connect(self.open_file_dialog)
+        self.actionLoad_Base_Deck.triggered.connect(self.open_file_dialog)
         self.pushButton_load.clicked.connect(self.open_file_dialog)
 
-        self.actionSave_Deck.triggered.connect(self.save_file_dialog)
+        self.actionSave_New_Deck.triggered.connect(self.save_file_dialog)
         self.pushButton_save.clicked.connect(self.save_file_dialog)
 
-        self.actionClear_Deck.triggered.connect(self.clear_base_deck_list)
-        self.pushButton_clear.clicked.connect(self.clear_base_deck_list)
+        self.actionClear_Base_Deck.triggered.connect(self.clear_base_deck_list)
+        self.pushButton_clear_base.clicked.connect(self.clear_base_deck_list)
+
+        self.actionClear_New_Deck.triggered.connect(self.clear_new_deck_list)
+        self.pushButton_clear_new.clicked.connect(self.clear_new_deck_list)
 
         self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
 
-        self.listView_base.clicked.connect(self.update_card_view_base)
-        self.listView_new.clicked.connect(self.update_card_view_new)
-        self.listView_base.doubleClicked.connect(self.update_new_deck_list_view)
+        self.listView_base.clicked.connect(self.on_update_card_view_base)
+        self.listView_new.clicked.connect(self.on_update_card_view_new)
+        self.listView_base.doubleClicked.connect(self.on_base_deck_list_view_double_clicked)
 
-        self.comboBox_type_base.activated.connect(self.process_filter_base)
-        self.comboBox_mana_base.activated.connect(self.process_filter_base)
-        self.comboBox_ability_base.activated.connect(self.process_filter_base)
-        self.comboBox_subtype_base.activated.connect(self.process_filter_base)
-        self.comboBox_rarity_base.activated.connect(self.process_filter_base)
-        self.checkBox_r_base.clicked.connect(self.process_filter_base)
-        self.checkBox_u_base.clicked.connect(self.process_filter_base)
-        self.checkBox_b_base.clicked.connect(self.process_filter_base)
-        self.checkBox_w_base.clicked.connect(self.process_filter_base)
-        self.checkBox_g_base.clicked.connect(self.process_filter_base)
-        self.checkBox_cl_base.clicked.connect(self.process_filter_base)
-        self.radioButton_mono_base.clicked.connect(self.process_filter_base)
-        self.radioButton_dual_base.clicked.connect(self.process_filter_base)
-        self.radioButton_multi_base.clicked.connect(self.process_filter_base)
-        self.spinBox_mana_base.valueChanged.connect(self.process_filter_base)
+        self.comboBox_type_base.activated.connect(self.on_process_filter_base)
+        self.comboBox_mana_base.activated.connect(self.on_process_filter_base)
+        self.comboBox_ability_base.activated.connect(self.on_process_filter_base)
+        self.comboBox_subtype_base.activated.connect(self.on_process_filter_base)
+        self.comboBox_rarity_base.activated.connect(self.on_process_filter_base)
+        self.checkBox_r_base.clicked.connect(self.on_process_filter_base)
+        self.checkBox_u_base.clicked.connect(self.on_process_filter_base)
+        self.checkBox_b_base.clicked.connect(self.on_process_filter_base)
+        self.checkBox_w_base.clicked.connect(self.on_process_filter_base)
+        self.checkBox_g_base.clicked.connect(self.on_process_filter_base)
+        self.checkBox_cl_base.clicked.connect(self.on_process_filter_base)
+        self.radioButton_mono_base.clicked.connect(self.on_process_filter_base)
+        self.radioButton_dual_base.clicked.connect(self.on_process_filter_base)
+        self.radioButton_multi_base.clicked.connect(self.on_process_filter_base)
+        self.spinBox_mana_base.valueChanged.connect(self.on_process_filter_base)
 
-    # todo: keypress event
-    def keyPressEvent(self, event):
-        if type(event) == QKeyEvent:
-            # here accept the event and do something
-            if event.key() == 16777220:  # code enter key
-                # self.update_card_view_new()
-                print('Enter key pressed!')
-            event.accept()
-        else:
-            event.ignore()
 
-    def on_row_changed(self, current, previous):
+    ## --- base deck -- ##
+
+    def on_base_deck_list_view_selection_changed(self, current, previous):
         items = current.indexes()
         for index in items:
             # print(index.row(), index.column())
-            self.update_card_view_base(index)  # wheewwww!
+            self.on_update_card_view_base(index)  # wheewwww!
 
-    def update_base_deck_list_view(self, lst):
-        for c in lst:
-            item = QStandardItem(c.__str__())
-            self.listView_base_model.appendRow(item)
-        self.listView_base.show()
-
-    def update_card_view_base(self, index):
-        print(type(index))
+    def on_update_card_view_base(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
         pic_filename = self.base_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
         scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)
 
-    def update_new_deck_list_view(self, index):
+    def update_base_deck_list_view(self, lst):
+        self.listView_base_model.clear()
+        for c in lst:
+            item = QStandardItem(c.__str__())
+            self.listView_base_model.appendRow(item)
+        self.listView_base.show()
+
+    def clear_base_deck_list(self):
+        self.base_deck.card_list = []
+        self.listView_base_model.clear()
+
+    def on_base_deck_list_view_double_clicked(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
         card_object = self.base_deck.get_card_from_name(card_name)
         self.new_deck.add_card(card_object)
-        model_new = QStandardItemModel(self.listView_base)
-        for c in self.new_deck.card_list:
-            item = QStandardItem(c.__str__())
-            model_new.appendRow(item)
-        self.listView_new.setModel(model_new)
-        self.listView_new.show()
+        self.update_new_deck_list_view(self.new_deck.card_list)
 
-    def update_card_view_new(self, index):
+    ## --- new deck -- ##
+
+    def on_new_deck_listView_selection_changed(self, current, previous):
+        items = current.indexes()
+        for index in items:
+            #print(index.row(), index.column())
+            self.on_update_card_view_new(index)  # wheewwww!
+
+    def on_update_card_view_new(self, index):
         card_name = self.listView_new.model().itemData(index)[0]
         pic_filename = self.new_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
         scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)
 
-    def update_text_field(self, message):
-        self.textEdit.append(message)
+    def update_new_deck_list_view(self, lst):
+        self.listView_new_model.clear()
+        for c in lst:
+            item = QStandardItem(c.__str__())
+            self.listView_new_model.appendRow(item)
+        self.listView_new.show()
 
-    def clear_base_deck_list(self):
-        self.base_deck.card_list = []
-        self.update_base_deck_list_view(self.base_deck.card_list)
+    def clear_new_deck_list(self):
+        self.new_deck.card_list = []
+        self.listView_new_model.clear()
+
+    ## --------
+
+    def on_update_text_field(self, message):
+        self.textEdit.append(message)
 
     def save_file_dialog(self):
         fileName, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
                                                   "Tab separated values (*.csv)")  # ;;All Files (*)"
         if not fileName:
             return
-
+        if len(self.new_deck.card_list) < 2:
+            self.on_update_text_field('Deck must contain at least 2 cards. Not saving.')
+            return
         self.new_deck.save_to_disk(fileName)
 
     def open_file_dialog(self):
@@ -154,7 +171,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         # lst = Deck.get_unique_list(lst)
         self.update_base_deck_list_view(lst)
 
-    def process_filter_base(self):
+    def on_process_filter_base(self):
         typ = self.comboBox_type_base.currentText()
         ability = self.comboBox_ability_base.currentText()
         subtype = self.comboBox_subtype_base.currentText()
@@ -218,3 +235,15 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         if not os.path.exists(self.folder_imgdb):
             os.mkdir(self.folder_imgdb)
         return
+
+    # todo: keypress event
+    def keyPressEvent(self, event):
+        if type(event) == QKeyEvent:
+            # here accept the event and do something
+            if event.key() == 16777220:  # code enter key
+                # self.update_card_view_new()
+                print('Enter key pressed!')
+            event.accept()
+        else:
+            event.ignore()
+

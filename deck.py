@@ -46,7 +46,7 @@ class Deck(object):
                     cc.load_dict_from_json(json_filename)
                     self.add_card(cc)
                 else:
-                    self.view.update_text_field(
+                    self.view.on_update_text_field(
                         'File {} does not exist. Downloading ...'.format(json_filename))
                     self.download_json(block)
                     self.make_from_file(filename)  # recursive call!
@@ -66,7 +66,7 @@ class Deck(object):
 
     def get_deck_stat(self):
         text = 'Total No. of cards in Deck: {}\nMore statistics to come...'.format(len(self.card_list))
-        self.view.update_text_field(text)
+        self.view.on_update_text_field(text)
 
     def download_images(self):
         for i in range(len(self.card_list)):
@@ -74,7 +74,7 @@ class Deck(object):
             if not os.path.exists(img_filename):
                 url = self.card_list[i].get_image_url(size='small')
                 message = '--> Retrieving image of {} from {}'.format(self.card_list[i], url)
-                self.view.update_text_field(message)
+                self.view.on_update_text_field(message)
                 g = ur.urlopen(url)
                 with open(img_filename, 'b+w') as f:
                     f.write(g.read())

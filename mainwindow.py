@@ -7,8 +7,7 @@ Feb 2015 Xaratustrah
 
 import os
 from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QFileDialog
-from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
-from PyQt5.QtCore import QModelIndex
+from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QKeyEvent
 from mainwindow_ui import Ui_MainWindow
 
 from deck import Deck
@@ -21,9 +20,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         # Set up the user interface from Designer.
 
-        self.folder_home = os.path.expanduser('~')+'/.manar/'
-        self.folder_json = os.path.expanduser('~')+'/.manar/json/'
-        self.folder_imgdb = os.path.expanduser('~')+'/.manar/imgdb/'
+        self.folder_home = os.path.expanduser('~') + '/.manar/'
+        self.folder_json = os.path.expanduser('~') + '/.manar/json/'
+        self.folder_imgdb = os.path.expanduser('~') + '/.manar/imgdb/'
 
         self.base_deck = Deck(self)
         self.base_deck.folder_json = self.folder_json
@@ -38,6 +37,13 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         # Signals
         self.connect_signals()
+
+        # need to keep track of list view, its model and its selection model
+        self.listView_base_model = QStandardItemModel()
+        self.listView_base.setModel(self.listView_base_model)
+        self.listView_base_selection_model = self.listView_base.selectionModel()  # workaround
+        self.listView_base_selection_model.selectionChanged.connect(self.on_row_changed)
+
 
     def connect_signals(self):
         self.actionDownload_Images.triggered.connect(self.base_deck.download_images)
@@ -73,17 +79,36 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.radioButton_multi_base.clicked.connect(self.process_filter_base)
         self.spinBox_mana_base.valueChanged.connect(self.process_filter_base)
 
-    def make_folders(self):
-        if not os.path.exists(self.folder_home):
-            os.mkdir(self.folder_home)
-        if not os.path.exists(self.folder_json):
-            os.mkdir(self.folder_json)
-        if not os.path.exists(self.folder_imgdb):
-            os.mkdir(self.folder_imgdb)
-        return
+    # todo: keypress event
+    def keyPressEvent(self, event):
+        if type(event) == QKeyEvent:
+            # here accept the event and do something
+            if event.key() == 16777220:  # code enter key
+                # self.update_card_view_new()
+                print('Enter key pressed!')
+            event.accept()
+        else:
+            event.ignore()
 
-    def update_text_field(self, message):
-        self.textEdit.append(message)
+    def on_row_changed(self, current, previous):
+        items = current.indexes()
+        for index in items:
+            # print(index.row(), index.column())
+            self.update_card_view_base(index)  # wheewwww!
+
+    def update_base_deck_list_view(self, lst):
+        for c in lst:
+            item = QStandardItem(c.__str__())
+            self.listView_base_model.appendRow(item)
+        self.listView_base.show()
+
+    def update_card_view_base(self, index):
+        print(type(index))
+        card_name = self.listView_base.model().itemData(index)[0]
+        pic_filename = self.base_deck.get_image_filename_from_name(card_name)
+        scene = QGraphicsScene()
+        scene.addPixmap(QPixmap(pic_filename))
+        self.graphicsView_card.setScene(scene)
 
     def update_new_deck_list_view(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
@@ -96,31 +121,19 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.listView_new.setModel(model_new)
         self.listView_new.show()
 
-    def update_base_deck_list_view(self, lst):
-        model_base = QStandardItemModel(self.listView_base)
-        for c in lst:
-            item = QStandardItem(c.__str__())
-            model_base.appendRow(item)
-        self.listView_base.setModel(model_base)
-        self.listView_base.show()
-
-    def clear_base_deck_list(self):
-        self.base_deck.card_list = []
-        self.update_base_deck_list_view(self.base_deck.card_list)
-
-    def update_card_view_base(self, index):
-        card_name = self.listView_base.model().itemData(index)[0]
-        pic_filename = self.base_deck.get_image_filename_from_name(card_name)
-        scene = QGraphicsScene()
-        scene.addPixmap(QPixmap(pic_filename))
-        self.graphicsView_card.setScene(scene)
-
     def update_card_view_new(self, index):
         card_name = self.listView_new.model().itemData(index)[0]
         pic_filename = self.new_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
         scene.addPixmap(QPixmap(pic_filename))
         self.graphicsView_card.setScene(scene)
+
+    def update_text_field(self, message):
+        self.textEdit.append(message)
+
+    def clear_base_deck_list(self):
+        self.base_deck.card_list = []
+        self.update_base_deck_list_view(self.base_deck.card_list)
 
     def save_file_dialog(self):
         fileName, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
@@ -197,3 +210,11 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         self.update_base_deck_list_view(lst_out)
 
+    def make_folders(self):
+        if not os.path.exists(self.folder_home):
+            os.mkdir(self.folder_home)
+        if not os.path.exists(self.folder_json):
+            os.mkdir(self.folder_json)
+        if not os.path.exists(self.folder_imgdb):
+            os.mkdir(self.folder_imgdb)
+        return

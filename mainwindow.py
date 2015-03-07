@@ -19,6 +19,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     def __init__(self):
         super(mainWindow, self).__init__()
 
+        self.current_base_card_index = None
+        self.current_new_card_index = None
+
         # Set up the user interface from Designer.
 
         self.folder_home = os.path.expanduser('~') + '/.manar/'
@@ -67,8 +70,8 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
         self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
 
-        self.listView_base.clicked.connect(self.on_update_card_view_base)
-        self.listView_new.clicked.connect(self.on_update_card_view_new)
+        self.listView_base.clicked.connect(self.update_card_view_base)
+        self.listView_new.clicked.connect(self.update_card_view_new)
         self.listView_base.doubleClicked.connect(self.on_base_deck_list_view_double_clicked)
 
         self.comboBox_type_base.activated.connect(self.on_process_filter_base)
@@ -94,9 +97,16 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         items = current.indexes()
         for index in items:
             # print(index.row(), index.column())
-            self.on_update_card_view_base(index)  # wheewwww!
+            self.current_base_card_index = index
+            self.update_card_view_base(index)  # wheewwww!
 
-    def on_update_card_view_base(self, index):
+    def on_base_deck_list_view_double_clicked(self, index):
+        card_name = self.listView_base.model().itemData(index)[0]
+        card_object = self.base_deck.get_card_from_name(card_name)
+        self.new_deck.add_card(card_object)
+        self.update_new_deck_list_view(self.new_deck.card_list)
+
+    def update_card_view_base(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
         pic_filename = self.base_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
@@ -114,21 +124,16 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.base_deck.card_list = []
         self.listView_base_model.clear()
 
-    def on_base_deck_list_view_double_clicked(self, index):
-        card_name = self.listView_base.model().itemData(index)[0]
-        card_object = self.base_deck.get_card_from_name(card_name)
-        self.new_deck.add_card(card_object)
-        self.update_new_deck_list_view(self.new_deck.card_list)
-
     ## --- new deck -- ##
 
     def on_new_deck_list_view_selection_changed(self, current, previous):
         items = current.indexes()
         for index in items:
             # print(index.row(), index.column())
-            self.on_update_card_view_new(index)  # wheewwww!
+            self.current_new_card_index = index
+            self.update_card_view_new(self.current_new_card_index)  # wheewwww!
 
-    def on_update_card_view_new(self, index):
+    def update_card_view_new(self, index):
         card_name = self.listView_new.model().itemData(index)[0]
         pic_filename = self.new_deck.get_image_filename_from_name(card_name)
         scene = QGraphicsScene()
@@ -141,6 +146,12 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             item = QStandardItem(c.__str__())
             self.listView_new_model.appendRow(item)
         self.listView_new.show()
+
+    def remove_card_from_new(self, index):
+        card_name = self.listView_new.model().itemData(index)[0]
+        card_object = self.base_deck.get_card_from_name(card_name)
+        self.new_deck.card_list.remove(card_object)
+        self.update_new_deck_list_view(self.new_deck.card_list)
 
     def clear_new_deck_list(self):
         self.new_deck.card_list = []
@@ -236,16 +247,14 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             os.mkdir(self.folder_imgdb)
         return
 
-    # todo: keypress event
     def keyPressEvent(self, event):
         if type(event) == QKeyEvent:
             # here accept the event and do something
-            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:  # code enter key
-                print('Enter key pressed!')
+            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+                self.on_base_deck_list_view_double_clicked(self.current_base_card_index)
             event.accept()
-            if event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:  # code enter key
-                print('Delete key pressed!')
+            if event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:
+                self.remove_card_from_new(self.current_new_card_index)
             event.accept()
         else:
             event.ignore()
-

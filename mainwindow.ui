@@ -629,14 +629,17 @@
        <property name="tabKeyNavigation">
         <bool>true</bool>
        </property>
+       <property name="showDropIndicator" stdset="0">
+        <bool>false</bool>
+       </property>
        <property name="dragEnabled">
         <bool>false</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::DragOnly</enum>
+        <enum>QAbstractItemView::NoDragDrop</enum>
        </property>
        <property name="defaultDropAction">
-        <enum>Qt::CopyAction</enum>
+        <enum>Qt::IgnoreAction</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
@@ -664,10 +667,10 @@
         <bool>false</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::DragOnly</enum>
+        <enum>QAbstractItemView::NoDragDrop</enum>
        </property>
        <property name="defaultDropAction">
-        <enum>Qt::CopyAction</enum>
+        <enum>Qt::IgnoreAction</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>

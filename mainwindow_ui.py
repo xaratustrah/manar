@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Mar  4 21:58:13 2015
+# Created: Sun Mar  8 18:32:39 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -249,9 +249,10 @@ class Ui_MainWindow(object):
         self.listView_base = QtWidgets.QListView(self.groupBox_base_2)
         self.listView_base.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.listView_base.setTabKeyNavigation(True)
+        self.listView_base.setProperty("showDropIndicator", False)
         self.listView_base.setDragEnabled(False)
-        self.listView_base.setDragDropMode(QtWidgets.QAbstractItemView.DragOnly)
-        self.listView_base.setDefaultDropAction(QtCore.Qt.CopyAction)
+        self.listView_base.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.listView_base.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.listView_base.setAlternatingRowColors(True)
         self.listView_base.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.listView_base.setMovement(QtWidgets.QListView.Snap)
@@ -262,8 +263,8 @@ class Ui_MainWindow(object):
         self.listView_new.setTabKeyNavigation(True)
         self.listView_new.setProperty("showDropIndicator", False)
         self.listView_new.setDragDropOverwriteMode(False)
-        self.listView_new.setDragDropMode(QtWidgets.QAbstractItemView.DragOnly)
-        self.listView_new.setDefaultDropAction(QtCore.Qt.CopyAction)
+        self.listView_new.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.listView_new.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.listView_new.setAlternatingRowColors(True)
         self.listView_new.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.listView_new.setMovement(QtWidgets.QListView.Snap)

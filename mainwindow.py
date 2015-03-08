@@ -147,7 +147,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             self.listView_new_model.appendRow(item)
         self.listView_new.show()
 
-    def remove_card_from_new(self, index):
+    def remove_card_from_new_deck_list(self, index):
         card_name = self.listView_new.model().itemData(index)[0]
         card_object = self.base_deck.get_card_from_name(card_name)
         self.new_deck.card_list.remove(card_object)
@@ -159,7 +159,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     ## --------
 
-    def on_update_text_field(self, message):
+    def update_text_field(self, message):
         self.textEdit.append(message)
 
     def save_file_dialog(self):
@@ -168,7 +168,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         if not fileName:
             return
         if len(self.new_deck.card_list) < 2:
-            self.on_update_text_field('Deck must contain at least 2 cards. Not saving.')
+            self.update_text_field('Deck must contain at least 2 cards. Not saving.')
             return
         self.new_deck.save_to_disk(fileName)
 
@@ -251,10 +251,13 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         if type(event) == QKeyEvent:
             # here accept the event and do something
             if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-                self.on_base_deck_list_view_double_clicked(self.current_base_card_index)
+                if self.focusWidget() is self.listView_base:
+                    self.on_base_deck_list_view_double_clicked(self.current_base_card_index)
+                    # self.test_items()
             event.accept()
             if event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:
-                self.remove_card_from_new(self.current_new_card_index)
+                if self.focusWidget() is self.listView_new:
+                    self.remove_card_from_new_deck_list(self.current_new_card_index)
             event.accept()
         else:
             event.ignore()

@@ -101,6 +101,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             self.update_card_view_base(index)  # wheewwww!
 
     def on_base_deck_list_view_double_clicked(self, index):
+        self.scan_for_dropped_items()
         card_name = self.listView_base.model().itemData(index)[0]
         card_object = self.base_deck.get_card_from_name(card_name)
         self.new_deck.add_card(card_object)
@@ -163,6 +164,7 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.textEdit.append(message)
 
     def save_file_dialog(self):
+        self.scan_for_dropped_items()
         fileName, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
                                                   "Tab separated values (*.csv)")  # ;;All Files (*)"
         if not fileName:
@@ -251,9 +253,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         if type(event) == QKeyEvent:
             # here accept the event and do something
             if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+                self.scan_for_dropped_items()
                 if self.focusWidget() is self.listView_base:
                     self.on_base_deck_list_view_double_clicked(self.current_base_card_index)
-                    # self.test_items()
             event.accept()
             if event.key() == Qt.Key_Delete or event.key() == Qt.Key_Backspace:
                 if self.focusWidget() is self.listView_new:
@@ -261,3 +263,13 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
             event.accept()
         else:
             event.ignore()
+
+    def scan_for_dropped_items(self):
+        self.new_deck.card_list = []
+        i = 0
+        while self.listView_new_model.item(i):
+            card_name = self.listView_new_model.item(i).text()
+            card_object = self.base_deck.get_card_from_name(card_name)
+            self.new_deck.card_list.append(card_object)
+            i += 1
+        self.update_new_deck_list_view(self.new_deck.card_list)

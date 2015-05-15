@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>985</width>
-    <height>713</height>
+    <width>982</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,28 +48,6 @@
       </sizepolicy>
      </property>
     </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>500</y>
-      <width>961</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>ManaRlysis results</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QTextEdit" name="textEdit">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
    <widget class="QGroupBox" name="groupBox_base">
     <property name="geometry">
@@ -597,13 +575,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_manarlize">
-         <property name="text">
-          <string>ManaRlize</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
     </layout>
@@ -705,7 +676,6 @@
    </widget>
    <zorder>groupBox_base</zorder>
    <zorder>groupBox</zorder>
-   <zorder>groupBox_3</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox_4</zorder>
   </widget>
@@ -715,7 +685,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>985</width>
+     <width>982</width>
      <height>22</height>
     </rect>
    </property>
@@ -731,19 +701,9 @@
     <addaction name="separator"/>
     <addaction name="actionDownload_Images"/>
     <addaction name="separator"/>
-    <addaction name="actionManaRlize"/>
     <addaction name="actionGet_Statistics"/>
    </widget>
-   <widget class="QMenu" name="menuCard">
-    <property name="title">
-     <string>Card</string>
-    </property>
-    <addaction name="actionPrint_URL"/>
-    <addaction name="actionPrint_JSON"/>
-    <addaction name="separator"/>
-   </widget>
    <addaction name="menuDeck"/>
-   <addaction name="menuCard"/>
   </widget>
   <action name="actionLoad_Base_Deck">
    <property name="text">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Mar 10 23:19:01 2015
+# Created: Fri May 15 18:20:42 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(985, 713)
+        MainWindow.resize(982, 545)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
@@ -31,15 +31,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.graphicsView_card.sizePolicy().hasHeightForWidth())
         self.graphicsView_card.setSizePolicy(sizePolicy)
         self.graphicsView_card.setObjectName("graphicsView_card")
-        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_3.setGeometry(QtCore.QRect(10, 500, 961, 161))
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.gridLayout = QtWidgets.QGridLayout(self.groupBox_3)
-        self.gridLayout.setObjectName("gridLayout")
-        self.textEdit = QtWidgets.QTextEdit(self.groupBox_3)
-        self.textEdit.setReadOnly(True)
-        self.textEdit.setObjectName("textEdit")
-        self.gridLayout.addWidget(self.textEdit, 0, 0, 1, 1)
         self.groupBox_base = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_base.setGeometry(QtCore.QRect(10, 10, 291, 491))
         self.groupBox_base.setObjectName("groupBox_base")
@@ -237,9 +228,6 @@ class Ui_MainWindow(object):
         self.pushButton_stat = QtWidgets.QPushButton(self.groupBox_base)
         self.pushButton_stat.setObjectName("pushButton_stat")
         self.horizontalLayout_9.addWidget(self.pushButton_stat)
-        self.pushButton_manarlize = QtWidgets.QPushButton(self.groupBox_base)
-        self.pushButton_manarlize.setObjectName("pushButton_manarlize")
-        self.horizontalLayout_9.addWidget(self.pushButton_manarlize)
         self.verticalLayout.addLayout(self.horizontalLayout_9)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setGeometry(QtCore.QRect(310, 260, 311, 241))
@@ -281,12 +269,10 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 985, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 982, 22))
         self.menubar.setObjectName("menubar")
         self.menuDeck = QtWidgets.QMenu(self.menubar)
         self.menuDeck.setObjectName("menuDeck")
-        self.menuCard = QtWidgets.QMenu(self.menubar)
-        self.menuCard.setObjectName("menuCard")
         MainWindow.setMenuBar(self.menubar)
         self.actionLoad_Base_Deck = QtWidgets.QAction(MainWindow)
         self.actionLoad_Base_Deck.setObjectName("actionLoad_Base_Deck")
@@ -314,13 +300,8 @@ class Ui_MainWindow(object):
         self.menuDeck.addSeparator()
         self.menuDeck.addAction(self.actionDownload_Images)
         self.menuDeck.addSeparator()
-        self.menuDeck.addAction(self.actionManaRlize)
         self.menuDeck.addAction(self.actionGet_Statistics)
-        self.menuCard.addAction(self.actionPrint_URL)
-        self.menuCard.addAction(self.actionPrint_JSON)
-        self.menuCard.addSeparator()
         self.menubar.addAction(self.menuDeck.menuAction())
-        self.menubar.addAction(self.menuCard.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -329,7 +310,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ManaR"))
         self.groupBox.setTitle(_translate("MainWindow", "Card view"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "ManaRlysis results"))
         self.groupBox_base.setTitle(_translate("MainWindow", "Filters"))
         self.label_color.setText(_translate("MainWindow", "Color"))
         self.radioButton_mono_base.setText(_translate("MainWindow", "mono"))
@@ -394,11 +374,9 @@ class Ui_MainWindow(object):
         self.pushButton_save.setText(_translate("MainWindow", "Save"))
         self.pushButton_clear_new.setText(_translate("MainWindow", "Clear"))
         self.pushButton_stat.setText(_translate("MainWindow", "Statistics"))
-        self.pushButton_manarlize.setText(_translate("MainWindow", "ManaRlize"))
         self.groupBox_2.setTitle(_translate("MainWindow", "New Deck"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Base Deck"))
         self.menuDeck.setTitle(_translate("MainWindow", "Deck"))
-        self.menuCard.setTitle(_translate("MainWindow", "Card"))
         self.actionLoad_Base_Deck.setText(_translate("MainWindow", "Load Base Deck"))
         self.actionLoad_Base_Deck.setShortcut(_translate("MainWindow", "Ctrl+O"))
         self.actionSave_New_Deck.setText(_translate("MainWindow", "Save New Deck"))

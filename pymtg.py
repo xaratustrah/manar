@@ -11,7 +11,7 @@ from deck import Deck
 
 if __name__ == "__main__":
     allcards = Deck("my_cards")
-    allcards.make_from_file('mycards.txt')
+    allcards.make_from_csv('mycards.txt')
     lst = allcards.nonland_card_list
     lst = Deck.get_unique_list(lst)
     Deck.print_list(Deck.get_blacks(lst))

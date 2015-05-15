@@ -68,8 +68,6 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
         self.actionClear_New_Deck.triggered.connect(self.clear_new_deck_list)
         self.pushButton_clear_new.clicked.connect(self.clear_new_deck_list)
 
-        self.pushButton_manarlize.clicked.connect(self.base_deck.get_deck_stat)
-
         self.listView_base.clicked.connect(self.update_card_view_base)
         self.listView_new.clicked.connect(self.update_card_view_new)
         self.listView_base.doubleClicked.connect(self.on_base_deck_list_view_double_clicked)
@@ -109,9 +107,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     def update_card_view_base(self, index):
         card_name = self.listView_base.model().itemData(index)[0]
-        pic_filename = self.base_deck.get_image_filename_from_name(card_name)
+        pic_file_name = self.base_deck.get_image_file_name_from_name(card_name)
         scene = QGraphicsScene()
-        scene.addPixmap(QPixmap(pic_filename))
+        scene.addPixmap(QPixmap(pic_file_name))
         self.graphicsView_card.setScene(scene)
 
     def update_base_deck_list_view(self, lst):
@@ -136,9 +134,9 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
 
     def update_card_view_new(self, index):
         card_name = self.listView_new.model().itemData(index)[0]
-        pic_filename = self.new_deck.get_image_filename_from_name(card_name)
+        pic_file_name = self.new_deck.get_image_file_name_from_name(card_name)
         scene = QGraphicsScene()
-        scene.addPixmap(QPixmap(pic_filename))
+        scene.addPixmap(QPixmap(pic_file_name))
         self.graphicsView_card.setScene(scene)
 
     def update_new_deck_list_view(self, lst):
@@ -161,26 +159,35 @@ class mainWindow(QMainWindow, Ui_MainWindow, Interface):
     ## --------
 
     def update_text_field(self, message):
-        self.textEdit.append(message)
+        self.statusbar.showMessage(message)
 
     def save_file_dialog(self):
         self.scan_for_dropped_items()
-        fileName, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
-                                                  "Tab separated values (*.csv)")  # ;;All Files (*)"
-        if not fileName:
+        file_name, _ = QFileDialog.getSaveFileName(self, "Save deck", '',
+                                                   "Tab separated values (*.csv);;Cockatrice Deck files (*.cod)")
+        if not file_name:
             return
         if len(self.new_deck.card_list) < 2:
             self.update_text_field('Deck must contain at least 2 cards. Not saving.')
             return
-        self.new_deck.save_to_disk(fileName)
+
+        if file_name.endswith('csv'):
+            self.new_deck.save_to_csv(file_name)
+        if file_name.endswith('cod'):
+            self.new_deck.save_to_cod(file_name)
 
     def open_file_dialog(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '', "Tab separated values (*.csv)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open Deck", '',
+                                                   "Tab separated values (*.csv);;Cockatrice Deck files (*.cod)")
 
         if not file_name:
             return
 
-        self.base_deck.make_from_file(file_name)
+        if file_name.endswith('csv'):
+            self.base_deck.make_from_csv(file_name)
+        if file_name.endswith('cod'):
+            self.base_deck.make_from_cod(file_name)
+
         lst = self.base_deck.card_list
         self.update_base_deck_list_view(lst)
 

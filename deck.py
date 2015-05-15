@@ -9,6 +9,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import urllib.request as ur
+import xml.etree.ElementTree as et
 from card import Card
 
 
@@ -33,23 +34,32 @@ class Deck(object):
 
         return
 
-    def make_from_file(self, filename):
-        cards_file = np.genfromtxt(filename, dtype=None)
-        self.name = os.path.splitext(filename)[0]
+    def make_from_cod(self, file_name):
+        with open(file_name, 'rb') as f:
+            ba = f.read()
+        xml_tree_root = et.fromstring(ba)
+        for elem in xml_tree_root.iter(tag='card'):
+            for i in range(int(elem.attrib['number'])):
+                print(elem.attrib['name'])
+                # todo: cod import finish
+
+    def make_from_csv(self, file_name):
+        cards_file = np.genfromtxt(file_name, dtype=None)
+        self.name = os.path.splitext(file_name)[0]
         for i in range(len(cards_file)):
             for j in range(cards_file[i][2]):
                 block = cards_file[i][0].decode("utf-8")
                 number = cards_file[i][1]
                 cc = Card(block, number)
-                json_filename = self.folder_json + block + '.json'
-                if os.path.exists(json_filename):
-                    cc.load_dict_from_json(json_filename)
+                json_file_name = self.folder_json + block + '.json'
+                if os.path.exists(json_file_name):
+                    cc.load_dict_from_json(json_file_name)
                     self.add_card(cc)
                 else:
                     self.view.update_text_field(
-                        'File {} does not exist. Downloading ...'.format(json_filename))
+                        'File {} does not exist. Downloading ...'.format(json_file_name))
                     self.download_json(block)
-                    self.make_from_file(filename)  # recursive call!
+                    self.make_from_csv(file_name)  # recursive call!
                     return
 
         # now sort by name
@@ -70,21 +80,35 @@ class Deck(object):
 
     def download_images(self):
         for i in range(len(self.card_list)):
-            img_filename = self.folder_imgdb + '{}.jpg'.format(self.card_list[i].get_uid())
-            if not os.path.exists(img_filename):
+            img_file_name = self.folder_imgdb + '{}.jpg'.format(self.card_list[i].get_uid())
+            if not os.path.exists(img_file_name):
                 url = self.card_list[i].get_image_url(size='small')
                 message = '--> Retrieving image of {} from {}'.format(self.card_list[i], url)
                 self.view.update_text_field(message)
                 g = ur.urlopen(url)
-                with open(img_filename, 'b+w') as f:
+                with open(img_file_name, 'b+w') as f:
                     f.write(g.read())
 
-    def save_to_disk(self, filename):
-        with open(filename, 'w') as f:
+    def save_to_cod(self, file_name):
+        root = et.Element('cockatrice_deck')
+        root.set('version', '1')
+        tree = et.ElementTree(root)
+        et.SubElement(root, 'deckname')
+        et.SubElement(root, 'comments')
+        zone = et.SubElement(root, 'zone')
+        for i in range(len(self.card_list)):
+            card = et.SubElement(zone, 'card')
+            card.set('number', '1')
+            card.set('price', '0')
+            card.set('name', self.card_list[i].name)
+        tree.write(file_name, encoding='utf-8', xml_declaration=True)
+
+    def save_to_csv(self, file_name):
+        with open(file_name, 'w') as f:
             for i in range(len(self.card_list)):
                 f.write('{}\t{}\t1\n'.format(self.card_list[i].block, self.card_list[i].number))
 
-    def get_image_filename_from_name(self, name):
+    def get_image_file_name_from_name(self, name):
         for c in self.card_list:
             if name == c.__str__():
                 return self.folder_imgdb + '{}.jpg'.format(c.get_uid())
